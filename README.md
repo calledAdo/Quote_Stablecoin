@@ -1,5 +1,7 @@
-# $QUOTE
-$QUOTE is a dollar-pegged algorithmic stablecoin that is backed by ETH and utilizes a virtual delta-neutral positions model to maintain stability. Currently supported on Optimism Blockchain; other blockchains coming soon.
+
+# $QUOTE 
+
+$QUOTE is a dollar-pegged algorithmic stablecoin that is backed by ETH and utilizes a virtual delta-neutral positions model to maintain stability. Currently supported on Optimism Blockchain; other blockchains coming soon. 
 
 ## How It Works
 Our system operates on a dual-token mechanism comprising $QUOTE and $LETH. 
@@ -10,11 +12,14 @@ $LETH tokens signify the liquidity provided by users to the system. Users obtain
 
 ### Stability using a virtual delta-neutral model
 
+
 Delta-neutral positions use a combination of long and short contracts to hedge against price movements, effectively neutralizing the impact of underlying asset fluctuations on the value of the positions.
+
 
 To keep $QUOTE pegged to a dollar, we utilize a virtual delta-neutral model on ETH while using $LETH to absorb the market volatility.
 
 ### Liquidity pool
+
 
 Our liquidity pool maintains a minimum ratio of 1:4 of $QUOTE to $ETH and a maximum ratio of 1:8, to ensure stability and capital allocation. Users predominantly contribute liquidity by depositing $ETH into the pool and receiving $LETH tokens in return. $LETH's value fluctuates with changes in the price of $ETH, while $QUOTE stays stable.
 
