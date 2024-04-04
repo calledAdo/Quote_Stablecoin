@@ -9,7 +9,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <main className="w-screen h-screen">
+      <main className="w-screen h-screen overflow-y-scroll scroll-smooth bg-background">
        <Routes>
         <Route path="/" element={ <Landing/>}/>
       

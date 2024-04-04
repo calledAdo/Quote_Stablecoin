@@ -1,4 +1,4 @@
-// import { Button } from "./button";
+import { Button } from "./button";
 // import { AreaChart } from "./charts";
 import { Header } from "./header";
 // import { TextInput, PasswordTextInput } from "./input";
@@ -9,5 +9,6 @@ import { Header } from "./header";
 // import { View } from "./view";
 
 export {
- Header
+ Header,
+ Button
 };
