@@ -1,8 +1,21 @@
 
-# $QUOTE 
+# $QUOTE Stablecoin <img src='https://github.com/greatonical/quote-stablecoin/assets/66218597/37d8f811-a689-484f-b33a-16f77fa8cbfe' width="25" height="25"/>
 
-$QUOTE is a dollar-pegged algorithmic stablecoin that is backed by ETH and utilizes a virtual delta-neutral positions model to maintain stability. Currently supported on Optimism Blockchain; other blockchains coming soon. 
 
+$QUOTE is a revolutionary algorithmic stablecoin that leverages delta-neutral positions on Ethereum (ETH) to maintain a stable value of one $QUOTE to one USD. Powered by a two-token system consisting of $QUOTE and $LETH, our platform offers users stability, liquidity, and yield opportunities in the decentralized finance space. Currently supported on Optimism Blockchain.
+
+## Problem Statement
+The stablecoin market is dominated by centralized stablecoins like USDT and USDC, which lack transparency and are susceptible to depegging due to market sentiments. Existing algorithmic stablecoins, while decentralized, often suffer from capital inefficiency and lack robust yield-bearing mechanisms, hindering their adoption and utility.
+
+## Solution
+$QUOTE addresses these challenges by introducing a novel approach to stablecoins. Through a dual-token system of $QUOTE and $LETH, backed by delta-neutral positions on ETH, we provide users with a stable and transparent stablecoin solution. By maintaining a minimum ratio of 1:4 of $QUOTE to $ETH in our liquidity pool and offering yield returns of up to 12%, we ensure capital efficiency, stability, and attractive returns for our users.
+
+## Benefits
+- Peg stability
+- Fully decentralized and transparent
+- Capital efficiency
+- Yield returns up to 12% for depositing ETH to get $LETH
+  
 ## How It Works
 Our system operates on a dual-token mechanism comprising $QUOTE and $LETH. 
 
@@ -12,47 +25,44 @@ $LETH tokens signify the liquidity provided by users to the system. Users obtain
 
 ### Stability using a virtual delta-neutral model
 
-
 Delta-neutral positions use a combination of long and short contracts to hedge against price movements, effectively neutralizing the impact of underlying asset fluctuations on the value of the positions.
-
 
 To keep $QUOTE pegged to a dollar, we utilize a virtual delta-neutral model on ETH while using $LETH to absorb the market volatility.
 
 ### Liquidity pool
 
-
 Our liquidity pool maintains a minimum ratio of 1:4 of $QUOTE to $ETH and a maximum ratio of 1:8, to ensure stability and capital allocation. Users predominantly contribute liquidity by depositing $ETH into the pool and receiving $LETH tokens in return. $LETH's value fluctuates with changes in the price of $ETH, while $QUOTE stays stable.
 
 Assuming there is 1 ETH in the pool at $4000/ETH with 250 $QUOTE in circulation, an equivalent value of $500 worth of ETH in the pool would back this while the rest of the pool ($3500) would be represented by $LETH tokens. If ETH drops to $3000/ETH, more $ETH from the pool is utilized to back the value of $QUOTE, reducing the price of $LETH. Conversely, if there's an increase in the price of $ETH, the value of $QUOTE remains stable while the price of $LETH increases accordingly.
 
-[Mint $QUOTE](https://youtube.com)   |   [Get $LETH](https://youtube.com) 
+[Mint $QUOTE  |  Get $LETH](https://quote-stablecoin.vercel.app/app)
 
-## Benefits
-- Peg stability
-- Fully decentralized and transparent
-- Capital efficiency
-- Yield returns up to 12% for depositing ETH to get $LETH
+## Technology
+- **Smart Contracts:** Ethereum smart contracts power the $QUOTE platform, ensuring secure and trustless transactions.
+- **Optimism:** Built on the Optimism Superchain, $QUOTE benefits from scalability and low transaction costs.
+- **Decentralized Oracle Networks:** Leveraging [Chainlink's](https://chain.link/) decentralized oracle networks to provide accurate and timely price feeds for ETH and other assets.
+- **Web3 Technologies:** Integrating Ethers.js to enable seamless interactions with the $QUOTE platform via compatible wallets and decentralized applications (DApps).
 
 ## How-To Guides
 
 ### How to mint $QUOTE
-1. Go to the [QUOTE DApp](#) on a browser.
-2. Connect your wallet and switch to the `Optimism` chain. Ensure you have sufficent $ETH in your wallet.
-3. Enter the value of **$ETH** you want to deposit or the amount of **$QUOTE you want to mint.
-4. Click on `MINT`.
+1. Connect your wallet on the [QUOTE DApp](https://quote-stablecoin.vercel.app/app) and switch to the `Optimism` chain. Ensure you have sufficent $ETH in your wallet.
+2. Enter the value of **$ETH** you want to deposit or the amount of **$QUOTE you want to mint.
+3. Click on `MINT`.
+
+![Mint page on QUOTE](https://github.com/greatonical/quote-stablecoin/assets/66218597/d69e3a13-000b-4dcc-b18c-39d0e528d207)
+
 
 ### How to burn $QUOTE and redeem your $ETH
-1. Go to the [QUOTE DApp](#) on a browser.
-2. Connect your wallet and switch to the `Optimism` chain.
-3. Enter the amount of **$QUOTE you want to burn.
-4. Click on `BURN`.
+1. Connect your wallet on the [QUOTE DApp](https://quote-stablecoin.vercel.app/app) and switch to the `Optimism` chain.
+2. Enter the amount of **$QUOTE you want to burn.
+3. Click on `BURN`.
 
 ### How to participate in the pool 
-1. Go to the [QUOTE DApp](#) on a browser.
-2. Connect your wallet and switch to the `Optimism` chain.
-3. Choose the token/coin you want to deposit ($ETH -> $LETH or $LETH -> $ETH).
-4. Enter the value you want to deposit.
-5. Click on `Deposit`.
+1. Connect your wallet on the [QUOTE DApp](https://quote-stablecoin.vercel.app/app) and switch to the `Optimism` chain.
+2. Choose the token/coin you want to deposit ($ETH -> $LETH or $LETH -> $ETH).
+3. Enter the value you want to deposit.
+4. Click on `Deposit`.
 
 By depositing $ETH to the pool, you get $LETH allowing you to earn yields from the platform. By depositing $LETH, you'd reclaiming their share of the deposited ETH from the pool.
 
@@ -69,9 +79,7 @@ We welcome contributions from developers and community members to help us improv
 
 ## Contact
 Have questions or need support? Get in touch with us:
-
-**Email:** contact@quote.io
-**Twitter:** @quoteofficial
+- **Website:** [https://quote.io](https://quote-stablecoin.vercel.app/)
 
 
 
