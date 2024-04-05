@@ -7,7 +7,7 @@ import Pool from "./pool";
 
 export default function AppLanding() {
   const [route, setRoute] = useState<string>("Mint");
-  const [showWallet, setShowWallet] = useState<boolean>(false);
+  // const [showWallet, setShowWallet] = useState<boolean>(false);
   const ShowRoute = () => {
     if (route === "Mint") {
       return <Mint />;
@@ -21,7 +21,7 @@ export default function AppLanding() {
     <main className="flex flex-col h-full relative">
       <AppHeader
         className=""
-        setShowWallet={setShowWallet}
+        // setShowWallet={setShowWallet}
         route={route}
         setRoute={setRoute}
       />
