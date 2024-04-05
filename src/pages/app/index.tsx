@@ -61,6 +61,10 @@ export default function AppLanding() {
             <p className="font-satoshi-medium text-lg">Trust Wallet</p>
           </button>
           <Line className="w-full mt-2" />
+          <a href="https://github.com/greatonical/quote-stablecoin/blob/frontend/README.md#how-to-guides" target="_blank" className="text-primary absolute bottom-5 underline flex flex-row">
+            View Minting guide here
+            <Icon icon={"octicon:arrow-up-right-24"} className="w-5 h-5"/>
+          </a>
         </motion.section>
       )}
     </main>
