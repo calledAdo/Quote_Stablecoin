@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Button, DropDownView } from "@components";
 import { MintToken, walletConnection, checkConnectedWallet } from "../../lib/utils";
 import axios from "axios";
-import { ethers } from "ethers";
 
 export default function Mint() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,9 +24,7 @@ export default function Mint() {
   const [ethValue, setEthValue] = useState("");  
     //@ts-ignore
     // const provider = new ethers.providers.Web3Provider(window.ethereum);
-    async function blockNum() {
-        const provider = new ethers.providers.AlchemyProvider("sepolia", 'alcht_j90XxxH8OzfunH6pXboPzXkRXbXo5X')
-    };
+
 
   const [isEthInputFocused, setEthInputFocused] = useState<boolean | null>(
     false
