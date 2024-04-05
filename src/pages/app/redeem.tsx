@@ -21,8 +21,8 @@ export default function Redeem() {
   const options = [{ coin: "ETH", image: "./eth.svg" }];
   const mintOptions = [{ coin: "QUOTE", image: "./quote_coin.svg" }];
 
-  const toggling = () => setIsOpen(!isOpen);
-
+  const toggling = () => setIsOpen(!isOpen)
+  
   const onOptionClicked = (value: any, image:any) => {
     setSelectedOption(value);
     setSelectedImage(image);
