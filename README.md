@@ -41,7 +41,7 @@ Assuming there is 1 ETH in the pool at $4000/ETH with 250 $QUOTE in circulation,
 - **Smart Contracts:** Ethereum smart contracts power the $QUOTE platform, ensuring secure and trustless transactions.
 - **Optimism:** Built on the Optimism Superchain, $QUOTE benefits from scalability and low transaction costs.
 - **Decentralized Oracle Networks:** Leveraging [Chainlink's](https://chain.link/) decentralized oracle networks to provide accurate and timely price feeds for ETH and other assets.
-- **Web3 Technologies:** Integrating Ether.js to enable seamless interactions with the $QUOTE platform via compatible wallets and decentralized applications (DApps).
+- **Web3 Technologies:** Integrating Ethers.js to enable seamless interactions with the $QUOTE platform via compatible wallets and decentralized applications (DApps).
 
 ## How-To Guides
 
@@ -50,8 +50,8 @@ Assuming there is 1 ETH in the pool at $4000/ETH with 250 $QUOTE in circulation,
 2. Connect your wallet and switch to the `Optimism` chain. Ensure you have sufficent $ETH in your wallet.
 3. Enter the value of **$ETH** you want to deposit or the amount of **$QUOTE you want to mint.
 4. Click on `MINT`.
-   
-![image](https://github.com/greatonical/quote-stablecoin/assets/66218597/d69e3a13-000b-4dcc-b18c-39d0e528d207)
+
+<img src='https://github.com/greatonical/quote-stablecoin/assets/66218597/d69e3a13-000b-4dcc-b18c-39d0e528d207' width='100' height='100'/>
 
 
 ### How to burn $QUOTE and redeem your $ETH
