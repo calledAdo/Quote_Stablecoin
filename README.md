@@ -35,7 +35,7 @@ Our liquidity pool maintains a minimum ratio of 1:4 of $QUOTE to $ETH and a maxi
 
 Assuming there is 1 ETH in the pool at $4000/ETH with 250 $QUOTE in circulation, an equivalent value of $500 worth of ETH in the pool would back this while the rest of the pool ($3500) would be represented by $LETH tokens. If ETH drops to $3000/ETH, more $ETH from the pool is utilized to back the value of $QUOTE, reducing the price of $LETH. Conversely, if there's an increase in the price of $ETH, the value of $QUOTE remains stable while the price of $LETH increases accordingly.
 
-[Mint $QUOTE](https://youtube.com)   |   [Get $LETH](https://youtube.com) 
+[Mint $QUOTE  |  Get $LETH](https://quote-stablecoin.vercel.app/app)
 
 ## Technology
 - **Smart Contracts:** Ethereum smart contracts power the $QUOTE platform, ensuring secure and trustless transactions.
@@ -46,26 +46,23 @@ Assuming there is 1 ETH in the pool at $4000/ETH with 250 $QUOTE in circulation,
 ## How-To Guides
 
 ### How to mint $QUOTE
-1. Go to the [QUOTE DApp](#) on a browser.
-2. Connect your wallet and switch to the `Optimism` chain. Ensure you have sufficent $ETH in your wallet.
-3. Enter the value of **$ETH** you want to deposit or the amount of **$QUOTE you want to mint.
-4. Click on `MINT`.
+1. Connect your wallet on the [QUOTE DApp](https://quote-stablecoin.vercel.app/app) and switch to the `Optimism` chain. Ensure you have sufficent $ETH in your wallet.
+2. Enter the value of **$ETH** you want to deposit or the amount of **$QUOTE you want to mint.
+3. Click on `MINT`.
 
-<img src='https://github.com/greatonical/quote-stablecoin/assets/66218597/d69e3a13-000b-4dcc-b18c-39d0e528d207' width='100' height='100'/>
+![Mint page on QUOTE](https://github.com/greatonical/quote-stablecoin/assets/66218597/d69e3a13-000b-4dcc-b18c-39d0e528d207)
 
 
 ### How to burn $QUOTE and redeem your $ETH
-1. Go to the [QUOTE DApp](#) on a browser.
-2. Connect your wallet and switch to the `Optimism` chain.
-3. Enter the amount of **$QUOTE you want to burn.
-4. Click on `BURN`.
+1. Connect your wallet on the [QUOTE DApp](https://quote-stablecoin.vercel.app/app) and switch to the `Optimism` chain.
+2. Enter the amount of **$QUOTE you want to burn.
+3. Click on `BURN`.
 
 ### How to participate in the pool 
-1. Go to the [QUOTE DApp](#) on a browser.
-2. Connect your wallet and switch to the `Optimism` chain.
-3. Choose the token/coin you want to deposit ($ETH -> $LETH or $LETH -> $ETH).
-4. Enter the value you want to deposit.
-5. Click on `Deposit`.
+1. Connect your wallet on the [QUOTE DApp](https://quote-stablecoin.vercel.app/app) and switch to the `Optimism` chain.
+2. Choose the token/coin you want to deposit ($ETH -> $LETH or $LETH -> $ETH).
+3. Enter the value you want to deposit.
+4. Click on `Deposit`.
 
 By depositing $ETH to the pool, you get $LETH allowing you to earn yields from the platform. By depositing $LETH, you'd reclaiming their share of the deposited ETH from the pool.
 
@@ -82,10 +79,7 @@ We welcome contributions from developers and community members to help us improv
 
 ## Contact
 Have questions or need support? Get in touch with us:
-
-- **Email:** contact@quote.io
-- **Twitter:** @quoteofficial
-- **Website:** [quote.io](https://quote.io)
+- **Website:** [https://quote.io](https://quote-stablecoin.vercel.app/)
 
 
 
