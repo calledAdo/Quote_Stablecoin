@@ -25,7 +25,6 @@ export const Header: React.FC<HeaderProps> = ({
     }, 300);
   };
 
-
   return (
     <header
       className={`flex flex-row fixed w-screen backdrop-blur h-22 items-center justify-between bg-background px-24 z-50 py-4 bg-opacity-5 ${className}`}
