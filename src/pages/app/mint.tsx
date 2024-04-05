@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, DropDownView } from "@components";
-import { MintToken, walletConnection, checkConnectedWallet, GetBalance } from "../../lib/utils";
+import { MintToken, walletConnection, checkConnectedWallet } from "../../lib/utils";
 import axios from "axios";
 
 export default function Mint() {
