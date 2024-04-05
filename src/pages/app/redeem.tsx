@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button, DropDownView } from "@components";
 import { checkConnectedWallet, walletConnection } from "../../lib/utils";
+import axios from "axios";
 
 export default function Redeem() {
 
@@ -13,6 +14,10 @@ export default function Redeem() {
   // const [account] = useState();
   const [selectedMintOption, setSelectedMintOption] = useState("");
   const [selectedMintImage, setSelectedMintImage] = useState("");
+
+  const [ethValue, setEthValue] = useState("");
+  const [ethInput, setEthInput] = useState("");
+  const [quoteInput, setQuoteInput] = useState("");
 
   //@ts-ignore
   // const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -37,7 +42,73 @@ export default function Redeem() {
     console.log("mss",selectedMintOption);
   };
 
+  const inputRef = useRef(null);
+  const [isEthInputFocused, setEthInputFocused] = useState<boolean | null>(
+    false
+  );
+
  
+  useEffect(() => {
+    axios
+      .get("https://api.coingecko.com/api/v3/coins/ethereum")
+      .then((res: any) => {
+        console.log("eth usd", res.data.market_data.current_price.usd);
+        setEthValue(res.data.market_data.current_price.usd);
+      });
+  });
+
+  useEffect(() => {
+    const handleFocusChange = () => {
+      const isFocused = document.activeElement === inputRef.current;
+      // Use the 'isFocused' variable to update your component's state or UI
+      console.log("Input is focused:", isFocused);
+      //@ts-ignore
+      setEthInputFocused(inputRef);
+      //   alert(isEthInputFocused)
+    };
+
+    window.addEventListener("focus", handleFocusChange);
+
+    return () => window.removeEventListener("focus", handleFocusChange);
+  }, [inputRef]);
+
+  useEffect(() => {
+    const convertValue = async () => {
+      try {
+        if (ethValue && isEthInputFocused) {
+          setQuoteInput(
+            (parseFloat(ethInput) * parseFloat(ethValue)).toString()
+          );
+        } else {
+          throw new Error("Failed to retrieve Ethereum price data");
+        }
+      } catch (error) {
+        console.error("Error fetching Ethereum price:", error);
+        // Handle error gracefully, potentially using a default price or informing the user
+        return null; // Or provide a default value here
+      }
+    };
+    convertValue();
+  }, [ethInput]);
+
+  useEffect(() => {
+    const convertValue = async () => {
+      try {
+        if (ethValue) {
+          setEthInput(
+            (parseFloat(quoteInput) / parseFloat(ethValue)).toString()
+          );
+        } else {
+          throw new Error("Failed to retrieve Ethereum price data");
+        }
+      } catch (error) {
+        console.error("Error fetching Ethereum price:", error);
+        // Handle error gracefully, potentially using a default price or informing the user
+        return null; // Or provide a default value here
+      }
+    };
+    convertValue();
+  }, [quoteInput]);
 
   useEffect(() => {
     walletConnection(setConnected);
@@ -53,8 +124,12 @@ export default function Redeem() {
             <input
               className="bg-transparent focus:outline-none placeholder-neutral-500 font-satoshi-medium text-4xl"
               type="number"
+              value={quoteInput}
+              onChange={(e)=>{setQuoteInput(e.target.value)}}
               placeholder="0"
+              min={0}
             />
+             <p className="text-neutral-500">1 QUOTE = 1 USD</p>
           </div>
 
           <DropDownView className="" defaultImage="./quote_coin.svg" defaultOption="QUOTE" toggling={mintToggling} options={mintOptions} selectedOption={selectedMintOption} selectedImage={selectedMintImage} isOpen={isMintOpen} onOptionClicked={onMintOptionClicked}/>
@@ -63,10 +138,15 @@ export default function Redeem() {
           <div>
             <p className="font-satoshi-medium">Redeem</p>
             <input
+            ref={inputRef}
               className="bg-transparent focus:outline-none placeholder-neutral-500 font-satoshi-medium text-4xl"
               type="number"
               placeholder="0"
+              value={ethInput}
+              onChange={(e)=>{setEthInput(e.target.value)}}
+              min={0}
             />
+             <p className="text-neutral-500">1 ETH = ${ethValue}</p>
           </div>
 
           <DropDownView className="" defaultImage="./eth.svg" defaultOption="ETH" toggling={toggling} options={options} selectedOption={selectedOption} selectedImage={selectedImage} isOpen={isOpen} onOptionClicked={onOptionClicked}/>

@@ -3,8 +3,15 @@ import { AppHeaderProps, HeaderProps } from "@lib/interfaces";
 import { Icon } from "@iconify/react";
 import { HeaderItems, AppHeaderItems } from "@constants";
 import { motion } from "framer-motion";
-import { checkConnectedWallet, connectWallet, openLink, scrolltoHash, walletConnection } from "../lib/utils";
+import {
+  checkConnectedWallet,
+  connectWallet,
+  openLink,
+  scrolltoHash,
+  walletConnection,
+} from "../lib/utils";
 import { useNavigate } from "react-router-dom";
+import { ChainDropDownView } from "./dropdown";
 // import { ethers } from "ethers";
 
 export const Header: React.FC<HeaderProps> = ({
@@ -37,15 +44,15 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             className="flex flex-col items-center text-black hover:text-primary font-satoshi-medium transition-all"
             onClick={() => {
-             
-              if(item.hashId !== "docs"){
+              if (item.hashId !== "docs") {
                 setRoute(item.route);
                 animateBorder();
                 scrolltoHash(item.hashId);
-              }else{
-                openLink("https://github.com/greatonical/quote-stablecoin/blob/frontend/README.md")
+              } else {
+                openLink(
+                  "https://github.com/greatonical/quote-stablecoin/blob/frontend/README.md"
+                );
               }
-              
             }}
           >
             <motion.hr
@@ -79,20 +86,38 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   setShowWallet,
   ...props
 }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [connected, setConnected] = useState(false);
   const [currentAccount, setCurrentAccount] = useState<string>("");
   const [account, setAccount] = useState();
   const [initialBorderWidth, setInitialBorderWidth] = useState(0);
   const [borderWidth, setBorderWidth] = useState(1);
+  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedImage, setSelectedImage] = useState("");
+
+  const [isOpen, setIsOpen] = useState(false);
+  const toggling = () => setIsOpen(!isOpen);
+  const options = [
+    { coin: "OP", image: "./op.svg" },
+    { coin: "ETH", image: "./eth.svg" },
+  ];
+
+  const onOptionClicked = (value: any, image: any) => {
+    setSelectedOption(value);
+    setSelectedImage(image);
+    setIsOpen(false);
+    console.log("ss", selectedOption);
+  };
 
   //@ts-ignore
   // const provider = new ethers.providers.Web3Provider(window.ethereum);
   // const signer = provider.getSigner(account);
 
-
-  const limit = 14
-  const displayedCurrentAccountText = currentAccount.length > limit ? currentAccount.substring(0, limit) + "..." : currentAccount;
+  const limit = 14;
+  const displayedCurrentAccountText =
+    currentAccount.length > limit
+      ? currentAccount.substring(0, limit) + "..."
+      : currentAccount;
 
   const animateBorder = () => {
     setBorderWidth(0);
@@ -102,10 +127,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
       setInitialBorderWidth(0);
     }, 300);
   };
-
-
-
- 
 
   useEffect(() => {
     walletConnection(setConnected);
@@ -118,7 +139,13 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
       {...props}
     >
       <section className="flex flex-row items-center justify-center gap-x-20">
-        <img src="./quote_coin.svg" onClick={()=>{navigate("/")}} className="object-contain w-12 h-12" />
+        <img
+          src="./quote_coin.svg"
+          onClick={() => {
+            navigate("/");
+          }}
+          className="object-contain w-12 h-12"
+        />
         {AppHeaderItems.map((item) => (
           <button
             className="flex flex-col items-center text-black hover:text-primary font-satoshi-medium transition-all"
@@ -139,15 +166,38 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           </button>
         ))}
       </section>
-      <button className={`${connected ? "border-primary border text-black w-52" : "bg-primary text-white hover:bg-pink-600 w-fit"} flex flex-row items-center text-ellipsis overflow-hidden  hover:scale-90  px-5 h-14 rounded-full transition-all gap-x-1`} 
-      onClick={()=>{connectWallet(account, setAccount, setConnected, setShowWallet)}}
-      >
-        {
-          connected ? (   <Icon icon={"solar:wallet-bold"} className="w-4 h-4 text-primary"/>):(null)
-        }
-        {/* <Icon icon={"solar:wallet-bold"} className="w-4 h-4 text-primary"/> */}
-       <p className="font-satoshi-medium"> {`${connected ? displayedCurrentAccountText : "Connect Wallet"}`}</p>
-      </button>
+      <div className="flex flex-row gap-x-4">
+        <ChainDropDownView
+          className="absolute right-[24%]"
+          defaultImage="./op.svg"
+          defaultOption="OP"
+          toggling={toggling}
+          options={options}
+          selectedOption={selectedOption}
+          selectedImage={selectedImage}
+          isOpen={isOpen}
+          onOptionClicked={onOptionClicked}
+        />
+        <button
+          className={`${
+            connected
+              ? "border-primary border text-black w-52"
+              : "bg-primary text-white hover:bg-pink-600 w-fit"
+          } flex flex-row items-center text-ellipsis overflow-hidden  hover:scale-90  px-5 h-14 rounded-full transition-all gap-x-1`}
+          onClick={() => {
+            connectWallet(account, setAccount, setConnected, setShowWallet);
+          }}
+        >
+          {connected ? (
+            <Icon icon={"solar:wallet-bold"} className="w-4 h-4 text-primary" />
+          ) : null}
+          {/* <Icon icon={"solar:wallet-bold"} className="w-4 h-4 text-primary"/> */}
+          <p className="font-satoshi-medium">
+            {" "}
+            {`${connected ? displayedCurrentAccountText : "Connect Wallet"}`}
+          </p>
+        </button>
+      </div>
     </header>
   );
 };
