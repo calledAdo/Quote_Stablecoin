@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, DropDownView } from "@components";
-import { checkConnectedWallet, isWalletConnected } from "../../lib/utils";
-import { ethers } from "ethers";
+import { checkConnectedWallet, walletConnection } from "../../lib/utils";
+
 
 
 export default function Mint() {
@@ -16,8 +16,8 @@ export default function Mint() {
   const [selectedMintOption, setSelectedMintOption] = useState("");
   const [selectedMintImage, setSelectedMintImage] = useState("");
 
-  //@ts-ignore
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+ 
 //   const signer = provider.getSigner(account);
   const options = [{ coin: "ETH", image: "./eth.svg" }];
   const mintOptions = [{ coin: "QUOTE", image: "./quote_coin.svg" }];
@@ -39,33 +39,22 @@ export default function Mint() {
     console.log("mss",selectedMintOption);
   };
 
-  async function walletConnection() {
-    await isWalletConnected(provider).then((connected) => {
-      if (connected) {
-        console.log("Wallet is connected");
-        setConnected(true);
-        // metamask is connected
-      } else {
-        console.log("Wallet is not connected");
-        setConnected(false);
-        // metamask is not connected
-      }
-    });
-  }
+
 
   useEffect(() => {
-    walletConnection();
+    walletConnection(setConnected);
     checkConnectedWallet(setCurrentAccount, setConnected);
   }, [currentAccount, connected]);
 
   return (
-    <main className="flex flex-col items-center justify-center pt-24 px-24">
+    <main className="flex flex-col items-center justify-center pt-40 px-24">
       <body className="bg-background-500 shadow-lg w-[50%] p-5 rounded-lg flex flex-col gap-y-4">
         <section className="bg-neutral-800 bg-opacity-5 p-5 rounded-xl flex flex-row items-center justify-between">
           <div>
             <p className="font-satoshi-medium">Deposit</p>
             <input
               className="bg-transparent focus:outline-none placeholder-neutral-500 font-satoshi-medium text-4xl"
+              type="number"
               placeholder="0"
             />
           </div>
@@ -78,6 +67,7 @@ export default function Mint() {
             <p className="font-satoshi-medium">Mint</p>
             <input
               className="bg-transparent focus:outline-none placeholder-neutral-500 font-satoshi-medium text-4xl"
+              type="number"
               placeholder="0"
             />
           </div>

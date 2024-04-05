@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { HeaderProps } from "@lib/interfaces";
+import { AppHeaderProps, HeaderProps } from "@lib/interfaces";
 import { Icon } from "@iconify/react";
 import { HeaderItems, AppHeaderItems } from "@constants";
 import { motion } from "framer-motion";
-import { checkConnectedWallet, connectWallet, isWalletConnected, scrolltoHash } from "../lib/utils";
+import { checkConnectedWallet, connectWallet, openLink, scrolltoHash, walletConnection } from "../lib/utils";
 import { useNavigate } from "react-router-dom";
-import { ethers } from "ethers";
+// import { ethers } from "ethers";
 
 export const Header: React.FC<HeaderProps> = ({
   className,
@@ -24,6 +24,8 @@ export const Header: React.FC<HeaderProps> = ({
       setInitialBorderWidth(0);
     }, 300);
   };
+
+
   return (
     <header
       className={`flex flex-row fixed w-screen backdrop-blur h-22 items-center justify-between bg-background px-24 z-50 py-4 bg-opacity-5 ${className}`}
@@ -36,9 +38,15 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             className="flex flex-col items-center text-black hover:text-primary font-satoshi-medium transition-all"
             onClick={() => {
-              setRoute(item.route);
-              animateBorder();
-              scrolltoHash(item.hashId);
+             
+              if(item.hashId !== "docs"){
+                setRoute(item.route);
+                animateBorder();
+                scrolltoHash(item.hashId);
+              }else{
+                openLink("https://github.com/greatonical/quote-stablecoin/blob/frontend/README.md")
+              }
+              
             }}
           >
             <motion.hr
@@ -54,7 +62,7 @@ export const Header: React.FC<HeaderProps> = ({
       </section>
 
       <button
-        className="bg-primary hover:bg-pink-600 hover:scale-90 w-52 px-5 h-14 text-white rounded-full transition-all"
+        className="bg-primary hover:bg-pink-600 hover:scale-90 w-52 px-5 h-14 text-white rounded-full transition-all font-satoshi"
         onClick={() => {
           navigate("/app");
         }}
@@ -65,12 +73,14 @@ export const Header: React.FC<HeaderProps> = ({
   );
 };
 
-export const AppHeader: React.FC<HeaderProps> = ({
+export const AppHeader: React.FC<AppHeaderProps> = ({
   className,
   route,
   setRoute,
+  setShowWallet,
   ...props
 }) => {
+  const navigate = useNavigate()
   const [connected, setConnected] = useState(false);
   const [currentAccount, setCurrentAccount] = useState<string>("");
   const [account, setAccount] = useState();
@@ -78,7 +88,7 @@ export const AppHeader: React.FC<HeaderProps> = ({
   const [borderWidth, setBorderWidth] = useState(1);
 
   //@ts-ignore
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  // const provider = new ethers.providers.Web3Provider(window.ethereum);
   // const signer = provider.getSigner(account);
 
 
@@ -96,22 +106,10 @@ export const AppHeader: React.FC<HeaderProps> = ({
 
 
 
-  async function walletConnection() {
-    await isWalletConnected(provider).then((connected) => {
-      if (connected) {
-        console.log("Wallet is connected");
-        setConnected(true);
-        // metamask is connected
-      } else {
-        console.log("Wallet is not connected");
-        setConnected(false);
-        // metamask is not connected
-      }
-    });
-  }
+ 
 
   useEffect(() => {
-    walletConnection();
+    walletConnection(setConnected);
     checkConnectedWallet(setCurrentAccount, setConnected);
   }, [currentAccount, connected]);
 
@@ -121,7 +119,7 @@ export const AppHeader: React.FC<HeaderProps> = ({
       {...props}
     >
       <section className="flex flex-row items-center justify-center gap-x-20">
-        <img src="./quote_coin.svg" className="object-contain w-12 h-12" />
+        <img src="./quote_coin.svg" onClick={()=>{navigate("/")}} className="object-contain w-12 h-12" />
         {AppHeaderItems.map((item) => (
           <button
             className="flex flex-col items-center text-black hover:text-primary font-satoshi-medium transition-all"
@@ -142,8 +140,13 @@ export const AppHeader: React.FC<HeaderProps> = ({
           </button>
         ))}
       </section>
-      <button className={`${connected ? "border-primary border text-black" : "bg-primary text-white hover:bg-pink-600"} flex flex-row items-center text-ellipsis overflow-hidden  hover:scale-90 w-52 px-5 h-14 rounded-full transition-all gap-x-1`} onClick={()=>{connectWallet(provider, account, setAccount, setConnected)}}>
-        <Icon icon={"solar:wallet-bold"} className="w-4 h-4 text-primary"/>
+      <button className={`${connected ? "border-primary border text-black w-52" : "bg-primary text-white hover:bg-pink-600 w-fit"} flex flex-row items-center text-ellipsis overflow-hidden  hover:scale-90  px-5 h-14 rounded-full transition-all gap-x-1`} 
+      onClick={()=>{connectWallet(account, setAccount, setConnected, setShowWallet)}}
+      >
+        {
+          connected ? (   <Icon icon={"solar:wallet-bold"} className="w-4 h-4 text-primary"/>):(null)
+        }
+        {/* <Icon icon={"solar:wallet-bold"} className="w-4 h-4 text-primary"/> */}
        <p className="font-satoshi-medium"> {`${connected ? displayedCurrentAccountText : "Connect Wallet"}`}</p>
       </button>
     </header>

@@ -36,6 +36,14 @@ export interface HeaderProps
   className: string;
   route: string;
   setRoute: Dispatch<SetStateAction<string>>
+
+}
+export interface AppHeaderProps
+  extends React.HTMLAttributes<HTMLDivElement> {
+  className: string;
+  route: string;
+  setRoute: Dispatch<SetStateAction<string>>
+  setShowWallet: Dispatch<SetStateAction<boolean>>
 }
 export interface FooterProps
   extends React.HTMLAttributes<HTMLDivElement> {

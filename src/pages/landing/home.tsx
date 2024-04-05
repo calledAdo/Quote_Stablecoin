@@ -22,8 +22,7 @@ export default function Home() {
         viewport={{ once: true }}
         transition={{ mass: 200, duration: 1, ease: "easeInOut", delay: 0.4 }}
       >
-        A dollar-pegged decentralized algorithmic stablecoin utilizing virtual
-        perp positions on $ETH
+       A dollar-pegged decentralized algorithmic stablecoin backed by $ETH
       </motion.p>
       <motion.div
         className="w-52 h-52 absolute top-32 left-0 bg-blur blur-3xl"

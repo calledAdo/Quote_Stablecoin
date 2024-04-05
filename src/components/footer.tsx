@@ -1,13 +1,13 @@
 import React from "react";
 import { FooterProps } from "@lib/interfaces";
-
+import { useNavigate } from "react-router-dom";
 
 export const Footer: React.FC<FooterProps> = ({
     className,
 
     ...props
   }) => {
-  
+    const navigate = useNavigate()
     return (
       <footer
       className="relative pt-10 pb-32 bg-gradient-to-tr from-primary-900 via-primary-900 via-30% to-primary-700 rounded-t-2xl overflow-clip px-24"
@@ -22,7 +22,7 @@ export const Footer: React.FC<FooterProps> = ({
             </span>
 
         <p className="w-[40%] text-base font-satoshi">A dollar-pegged decentralized algorithmic stablecoin utilizing virtual perp positions on $ETH</p>
-        <button className="bg-primary hover:bg-pink-600 hover:scale-90 w-52 px-5 h-12 text-white rounded-full transition-all">
+        <button className="bg-primary hover:bg-pink-600 hover:scale-90 w-52 px-5 h-12 text-white rounded-full transition-all font-satoshi" onClick={()=>{navigate("/app")}}>
           Launch App
         </button>
         </section>

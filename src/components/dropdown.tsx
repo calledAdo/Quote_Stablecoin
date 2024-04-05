@@ -23,7 +23,7 @@ export const DropDownView: React.FC<DropdownProps> = ({
 }) => {
   return (
     <DropDownContainer className="w-fit bg-primary-200 rounded-3xl px-4 py-2" {...props}>
-      <DropDownHeader onClick={toggling}>
+      <DropDownHeader className="cursor-pointer" onClick={toggling}>
         {selectedOption ? (
           <div className="flex flex-row items-center gap-x-2 ">
             <img className="w-10 h-10" src={selectedImage} />

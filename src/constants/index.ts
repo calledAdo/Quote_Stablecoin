@@ -89,3 +89,6 @@ export const DocsItems = [
         answer:"Yields in the $QUOTE ecosystem are generated through minting fees and potential staking of ETH. Users who participate in minting $QUOTE tokens and staking ETH to generate $LETH tokens earn yields as a reward for their participation."
     },
   ]
+
+  export const TRUST_WALLET_LINK = "https://trustwallet.com"
+  export const METAMASK_LINK = "https://metamask.io"

@@ -6,10 +6,10 @@ import { Footer } from "./footer";
 import { AppHeader,Header } from "./header";
 
 // import { TextInput, PasswordTextInput } from "./input";
-// import { Line } from "./line";
+import { Line } from "./line";
 // import { OTPModal, SuccessModal } from "./modal";
 // import { Sidebar } from "./sidebar";
 // import { HeaderText, SubText, Text } from "./text";
 // import { View } from "./view";
 
-export { Accordion, AppHeader,Header, Button,OutlinedButton, DropDownView, Footer };
+export { Accordion, AppHeader,Header, Button,OutlinedButton, DropDownView, Line, Footer };
