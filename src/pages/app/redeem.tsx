@@ -168,7 +168,8 @@ export default function Redeem() {
         </section>
 
         <Button
-          className=""
+            className=" disabled:bg-neutral-600 disabled:hover:scale-100"
+            disabled={!connected}
           text={`${connected ? "Redeem" : "Connect Wallet"}`}
         />
       </body>

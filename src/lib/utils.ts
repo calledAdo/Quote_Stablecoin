@@ -80,6 +80,43 @@ export async function MintLETH(account: any, amount: string) {
   }
 }
 
+export async function GetBalance(){
+    //@ts-ignore
+    if (window.ethereum) {
+      // 1️⃣ Request Wallet Connection from Metamask
+      // ANSWER can be found here: https://docs.metamask.io/wallet/get-started/set-up-dev-environment/
+      // const accounts = YOUR CODE
+  
+      // setConnected(accounts[0]);
+      //@ts-ignore
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      // const a = await provider.send("eth_requestAccounts", []);
+      // const signer = provider.getSigner(account);
+      const contractAddress = "0x031fe35d4798d92b2a6F6b4Fa1Ff22b0C6cC4F4a";
+  
+      // let contract = new ethers.Contract(contractAddress, ABI.abi, signer);
+  
+      try {
+        //@ts-ignore
+        //c console.log("FUNCTIONS", contract.interface.forEachFunction((f)=>console.log(f)))
+        // await contract.mintQUOTE({ value: parseEther(amount) });
+        console.log((await provider.getBalance(contractAddress)).toString()) 
+        // const balance = await provider.getBalance()
+        // return balance
+
+      } catch (error) {
+        console.error("User rejected request:", error);
+      }
+      // console.log(a);
+    } else {
+      // alert("No web3 provider detected");
+      // setShowWallets(true)
+      //@ts-ignore
+      document.getElementById("connectMessage").innerText =
+        "No web3 provider detected. Please install MetaMask.";
+        return null
+    }
+}
 export async function RequestOPNetwork() {
   //@ts-ignore
   if (window.ethereum) {
@@ -208,6 +245,7 @@ export async function MintToken(account: any, amount: string) {
       "No web3 provider detected. Please install MetaMask.";
   }
 }
+
 export async function walletConnection(
   // url: string,
   setConnected: Dispatch<SetStateAction<boolean>>
@@ -251,6 +289,7 @@ export async function connectWallet(
     const a = await provider.send("eth_requestAccounts", []);
     setAccount(a[0]);
     setConnected(true);
+    RequestOPNetwork()
     console.log(account);
   } else {
     // alert("No web3 provider detected");

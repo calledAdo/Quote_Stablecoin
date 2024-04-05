@@ -141,7 +141,8 @@ export default function Pool() {
         </section>
 
         <Button
-          className="w-full"
+            className="w-full disabled:bg-neutral-600 disabled:hover:scale-100"
+            disabled={!connected}
           onClick={()=>{MintLETH(currentAccount, ethInput)}}
           text={`${connected ? "Deposit" : "Connect Wallet"}`}
         />
