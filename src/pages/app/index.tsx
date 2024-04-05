@@ -1,4 +1,4 @@
-import { AppHeader } from "@components";
+// import { AppHeader } from "@components";
 import { useState } from "react";
 import Mint from "./mint";
 import Redeem from "./redeem";
