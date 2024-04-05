@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home, Landing } from "@pages";
+import { AppLanding, Landing } from "@pages";
 
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
       <main className="w-screen h-screen overflow-y-scroll scroll-smooth bg-background">
        <Routes>
         <Route path="/" element={ <Landing/>}/>
+        <Route path="/app" element={ <AppLanding/>}/>
       
        </Routes>
       </main>

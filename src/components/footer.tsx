@@ -1,9 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import { FooterProps, HeaderProps, ViewProps } from "@lib/interfaces";
-import { Icon } from "@iconify/react";
-import { HeaderItems } from "@constants";
-import { motion } from "framer-motion";
-import { scrolltoHash } from "../lib/utils";
+import React from "react";
+import { FooterProps } from "@lib/interfaces";
+
 
 export const Footer: React.FC<FooterProps> = ({
     className,

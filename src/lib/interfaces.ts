@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { DropDown } from "./types";
 
 export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   text: string;
@@ -17,6 +18,18 @@ export interface ButtonProps
 export interface ViewProps
   extends React.HTMLAttributes<HTMLDivElement> {
   className: string;
+}
+export interface DropdownProps
+  extends React.HTMLAttributes<HTMLDivElement> {
+  className: string;
+  defaultOption:string;
+  defaultImage: string;
+  toggling: () => void;
+  options: Array<DropDown>
+  selectedOption: string
+  selectedImage: string
+  isOpen: boolean
+  onOptionClicked:(coin:string | undefined, image:string | undefined)=> void
 }
 export interface HeaderProps
   extends React.HTMLAttributes<HTMLDivElement> {

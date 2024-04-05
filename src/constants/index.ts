@@ -21,6 +21,24 @@ export const HeaderItems = [
   },
 ];
 
+export const AppHeaderItems = [
+    {
+      id: 0,
+      hashId: "mint",
+      route: "Mint",
+    },
+    {
+      id: 1,
+      hashId: "redeem",
+      route: "Redeem",
+    },
+    {
+      id: 2,
+      hashId: "pool",
+      route: "Pool",
+    }
+  ];
+
 export const DocsItems = [
     {
       id: 0,
