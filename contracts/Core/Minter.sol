@@ -221,12 +221,11 @@ contract Minter {
         uint quoteTotalSupply = IERC20(QUOTE_TOKEN).totalSupply();
         uint lethTotalSupply = IERC20(LETH_TOKEN).totalSupply();
         if (mint) {
-            if (quoteTotalSupply != 0) {
-                if (overCollateralised(poolValue, quoteTotalSupply)) {
-                    revert AboveMaxCollateralRatio(
-                        poolValue / quoteTotalSupply
-                    );
-                }
+            if (
+                quoteTotalSupply != 0 &&
+                overCollateralised(poolValue, quoteTotalSupply)
+            ) {
+                revert AboveMaxCollateralRatio(poolValue / quoteTotalSupply);
             }
 
             amountOut =
@@ -257,7 +256,10 @@ contract Minter {
             );
 
             //checks if this would result in undercollateralisation and if so revert
-            if (underCollateralised(poolValueAfter, quoteTotalSupply)) {
+            if (
+                quoteTotalSupply != 0 &&
+                underCollateralised(poolValueAfter, quoteTotalSupply)
+            ) {
                 revert BelowMinCollateralRatio(
                     poolValueAfter / quoteTotalSupply
                 );
