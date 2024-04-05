@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { HeaderProps, ViewProps } from "@lib/interfaces";
+import { HeaderProps } from "@lib/interfaces";
 import { Icon } from "@iconify/react";
 import { HeaderItems, AppHeaderItems } from "@constants";
 import { motion } from "framer-motion";
@@ -79,7 +79,7 @@ export const AppHeader: React.FC<HeaderProps> = ({
 
   //@ts-ignore
   const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner(account);
+  // const signer = provider.getSigner(account);
 
 
   const limit = 14

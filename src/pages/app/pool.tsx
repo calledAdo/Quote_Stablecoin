@@ -1,32 +1,25 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Icon } from "@iconify/react";
+import { useState, useEffect } from "react";
 import { Button, DropDownView } from "@components";
-import { checkConnectedWallet, connectWallet, isWalletConnected, scrolltoHash } from "../../lib/utils";
+import { checkConnectedWallet, isWalletConnected } from "../../lib/utils";
 import { ethers } from "ethers";
 
-const DropDownContainer = styled("div")``;
-const DropDownHeader = styled("div")``;
-const DropDownListContainer = styled("div")``;
-const DropDownList = styled("ul")``;
-const ListItem = styled("li")``;
 
 export default function Pool() {
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isWithdrawal, setWithdrawal] = useState(false);
+//   const [isWithdrawal, setWithdrawal] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const [withdrawalOpen, setWithdrawalOpen] = useState(false);
   const [connected, setConnected] = useState(false);
   const [currentAccount, setCurrentAccount] = useState(null);
-  const [account, setAccount] = useState();
+//   const [account] = useState();
   const [selectedWithdrawalOption, setSelectedWithdrawalOption] = useState("");
   const [selectedWithdrawalmage, setSelectedWithdrawalImage] = useState("");
 
   //@ts-ignore
   const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner(account);
+//   const signer = provider.getSigner(account);
   const options = [{ coin: "ETH", image: "./eth.svg" }];
   const mintOptions = [{ coin: "LETH", image: "./leth.svg" }];
 

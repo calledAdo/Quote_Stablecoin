@@ -1,15 +1,7 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Icon } from "@iconify/react";
+import { useState, useEffect } from "react";
 import { Button, DropDownView } from "@components";
-import { checkConnectedWallet, connectWallet, isWalletConnected, scrolltoHash } from "../../lib/utils";
+import { checkConnectedWallet, isWalletConnected } from "../../lib/utils";
 import { ethers } from "ethers";
-
-const DropDownContainer = styled("div")``;
-const DropDownHeader = styled("div")``;
-const DropDownListContainer = styled("div")``;
-const DropDownList = styled("ul")``;
-const ListItem = styled("li")``;
 
 export default function Redeem() {
 
@@ -19,13 +11,13 @@ export default function Redeem() {
   const [isMintOpen, setMintIsOpen] = useState(false);
   const [connected, setConnected] = useState(false);
   const [currentAccount, setCurrentAccount] = useState(null);
-  const [account, setAccount] = useState();
+  // const [account] = useState();
   const [selectedMintOption, setSelectedMintOption] = useState("");
   const [selectedMintImage, setSelectedMintImage] = useState("");
 
   //@ts-ignore
   const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner(account);
+  // const signer = provider.getSigner(account);
   const options = [{ coin: "ETH", image: "./eth.svg" }];
   const mintOptions = [{ coin: "QUOTE", image: "./quote_coin.svg" }];
 

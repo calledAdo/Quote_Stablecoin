@@ -1,8 +1,7 @@
-import { scrolltoHash } from "@lib/utils";
 import { Footer, Header } from "@components";
-import React, { useState } from "react";
+import { useState } from "react";
 import Home from "./home";
-import { motion } from "framer-motion";
+
 import Works from "./works";
 import Docs from "./docs";
 import Pricing from "./pricing";
@@ -15,14 +14,13 @@ export default function Landing() {
     <main className="flex flex-col">
       <Header className="" route={route} setRoute={setRoute} />
 
-
       <Home />
-      <Works/>
-      <Docs/>
-      <Pricing/>
-      <FAQS/>
+      <Works />
+      <Docs />
+      <Pricing />
+      <FAQS />
 
-      <Footer className=""/>
+      <Footer className="" />
     </main>
   );
 }

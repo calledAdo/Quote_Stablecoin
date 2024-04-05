@@ -1,16 +1,13 @@
 import { Button, OutlinedButton } from "@components";
-import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Works() {
-  const [showSecondText, setShowSecondText] = useState(false);
+
   return (
     <main
     id="works"
       className="flex flex-row py-44 px-24 z-10 justify-between items-center"
-      onDragEnter={() => {
-        setShowSecondText(true);
-      }}
+    
     >
       <section className="w-[40%] flex flex-col">
         <motion.p className="font-satoshi-bold text-3xl z-10"  initial={{ opacity: 0, y: 10 }}
