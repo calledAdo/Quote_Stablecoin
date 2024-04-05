@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Button, DropDownView } from "@components";
 import { MintToken, walletConnection, checkConnectedWallet } from "../../lib/utils";
 import axios from "axios";
