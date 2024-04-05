@@ -17,6 +17,7 @@ export default function Docs() {
           </p>
         </motion.div>
 
+        
         <motion.div className="bg-white shadow-lg rounded-xl p-5 w-[90%]"  initial={{ opacity: 0 }}
           whileInView={{ opacity: 1}}
           viewport={{ once: true }}
