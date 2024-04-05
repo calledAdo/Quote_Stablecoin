@@ -102,6 +102,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     { coin: "ETH", image: "./eth.svg" },
   ];
 
+  
   const onOptionClicked = (value: any, image: any) => {
     setSelectedOption(value);
     setSelectedImage(image);
@@ -132,6 +133,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     walletConnection(setConnected);
     checkConnectedWallet(setCurrentAccount, setConnected);
   }, [currentAccount, connected]);
+
+  
 
   return (
     <header

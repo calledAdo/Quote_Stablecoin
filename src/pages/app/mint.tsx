@@ -1,17 +1,18 @@
 import { useState, useEffect, useRef } from "react";
 import { Button, DropDownView } from "@components";
-import { checkConnectedWallet, walletConnection } from "../../lib/utils";
+import { MintToken, walletConnection, checkConnectedWallet } from "../../lib/utils";
 import axios from "axios";
 
 export default function Mint() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
+
   const [ethInput, setEthInput] = useState("");
   const [quoteInput, setQuoteInput] = useState("");
   const [isMintOpen, setMintIsOpen] = useState(false);
   const [connected, setConnected] = useState(false);
-  const [currentAccount, setCurrentAccount] = useState(null);
+  const [currentAccount, setCurrentAccount] = useState();
   //   const [account] = useState();
   const [selectedMintOption, setSelectedMintOption] = useState("");
   const [selectedMintImage, setSelectedMintImage] = useState("");
@@ -20,9 +21,11 @@ export default function Mint() {
   const options = [{ coin: "ETH", image: "./eth.svg" }];
   const mintOptions = [{ coin: "QUOTE", image: "./quote_coin.svg" }];
 
-  const [ethValue, setEthValue] = useState("");
+  const [ethValue, setEthValue] = useState("");  
+    //@ts-ignore
+    // const provider = new ethers.providers.Web3Provider(window.ethereum);
+  
 
-  const inputRef = useRef(null);
   const [isEthInputFocused, setEthInputFocused] = useState<boolean | null>(
     false
   );
@@ -58,20 +61,14 @@ export default function Mint() {
     checkConnectedWallet(setCurrentAccount, setConnected);
   }, [currentAccount, connected]);
 
-  useEffect(() => {
-    const handleFocusChange = () => {
-      const isFocused = document.activeElement === inputRef.current;
-      // Use the 'isFocused' variable to update your component's state or UI
-      console.log("Input is focused:", isFocused);
-      //@ts-ignore
-      setEthInputFocused(inputRef);
-      //   alert(isEthInputFocused)
-    };
 
-    window.addEventListener("focus", handleFocusChange);
+  const handleFocus = () => {
+    setEthInputFocused(true);
+  };
 
-    return () => window.removeEventListener("focus", handleFocusChange);
-  }, [inputRef]);
+  const handleBlur = () => {
+    setEthInputFocused(false);
+  };
 
   useEffect(() => {
     const convertValue = async () => {
@@ -124,6 +121,8 @@ export default function Mint() {
               onChange={(e) => {
                 setEthInput(e.target.value);
               }}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               placeholder="0"
               min={0}
             />
@@ -155,6 +154,7 @@ export default function Mint() {
               onChange={(e) => {
                 setQuoteInput(e.target.value);
               }}
+         
               min={0}
             />
 
@@ -176,7 +176,7 @@ export default function Mint() {
 
         <Button
           className=""
-          onClick={() => {}}
+          onClick={() => {MintToken(currentAccount, ethInput)}}
           text={`${connected ? "Mint" : "Connect Wallet"}`}
         />
       </body>

@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import { Dispatch, SetStateAction } from "react";
-
+import ABI from "../abi/Minter.json"
+import { parseEther } from "ethers/lib/utils";
 export const scrolltoHash = function (element_id: string) {
   const element = document.getElementById(element_id);
   element?.scrollIntoView({
@@ -36,6 +37,94 @@ export const checkConnectedWallet = async (
   }
 };
 
+export async function MintLETH(account:any, amount:string) {
+   //@ts-ignore
+   if (window.ethereum) {
+    // 1️⃣ Request Wallet Connection from Metamask
+    // ANSWER can be found here: https://docs.metamask.io/wallet/get-started/set-up-dev-environment/
+    // const accounts = YOUR CODE
+
+    // setConnected(accounts[0]);
+    //@ts-ignore
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // const a = await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner(account);
+    const contractAddress = "0x031fe35d4798d92b2a6F6b4Fa1Ff22b0C6cC4F4a";
+
+    let contract = new ethers.Contract(contractAddress, ABI.abi, signer);
+
+    
+    try {
+      //@ts-ignore
+      //c console.log("FUNCTIONS", contract.interface.forEachFunction((f)=>console.log(f)))
+      await contract.mintLETH({value:parseEther(amount)});
+      // await provider.getBalance(contractAddress)
+    // const balance = await provider.getBalance()
+
+      // 4️⃣ call the contract createTweet method in order to crete the actual TWEET
+      // HINT: https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-send
+      // use the "await" feature to wait for the function to finish execution
+      // what is await? https://javascript.info/async-await
+      // 7️⃣ Uncomment the displayTweets function! PRETTY EASY 🔥
+      // GOAL: reload tweets after creating a new tweet
+      // displayTweets(accounts[0]);
+    } catch (error) {
+      console.error("User rejected request:", error);
+    }
+    // console.log(a);
+  } else {
+    
+    // alert("No web3 provider detected");
+    // setShowWallets(true)
+    //@ts-ignore
+    document.getElementById("connectMessage").innerText =
+      "No web3 provider detected. Please install MetaMask.";
+  }
+}
+export async function MintToken(account:any, amount:string) {
+   //@ts-ignore
+   if (window.ethereum) {
+    // 1️⃣ Request Wallet Connection from Metamask
+    // ANSWER can be found here: https://docs.metamask.io/wallet/get-started/set-up-dev-environment/
+    // const accounts = YOUR CODE
+
+    // setConnected(accounts[0]);
+    //@ts-ignore
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // const a = await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner(account);
+    const contractAddress = "0x031fe35d4798d92b2a6F6b4Fa1Ff22b0C6cC4F4a";
+
+    let contract = new ethers.Contract(contractAddress, ABI.abi, signer);
+
+    
+    try {
+      //@ts-ignore
+      //c console.log("FUNCTIONS", contract.interface.forEachFunction((f)=>console.log(f)))
+      await contract.mintQUOTE({value:parseEther(amount)});
+      // await provider.getBalance(contractAddress)
+    // const balance = await provider.getBalance()
+
+      // 4️⃣ call the contract createTweet method in order to crete the actual TWEET
+      // HINT: https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-send
+      // use the "await" feature to wait for the function to finish execution
+      // what is await? https://javascript.info/async-await
+      // 7️⃣ Uncomment the displayTweets function! PRETTY EASY 🔥
+      // GOAL: reload tweets after creating a new tweet
+      // displayTweets(accounts[0]);
+    } catch (error) {
+      console.error("User rejected request:", error);
+    }
+    // console.log(a);
+  } else {
+    
+    // alert("No web3 provider detected");
+    // setShowWallets(true)
+    //@ts-ignore
+    document.getElementById("connectMessage").innerText =
+      "No web3 provider detected. Please install MetaMask.";
+  }
+}
 export async function walletConnection(
   // url: string,
   setConnected: Dispatch<SetStateAction<boolean>>

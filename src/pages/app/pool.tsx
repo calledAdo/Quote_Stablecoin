@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, DropDownView } from "@components";
-import { checkConnectedWallet, walletConnection } from "../../lib/utils";
+import { checkConnectedWallet, MintLETH, walletConnection } from "../../lib/utils";
 import { Icon } from "@iconify/react";
 
 export default function Pool() {
@@ -99,7 +99,7 @@ export default function Pool() {
         </button>
         <section className="bg-neutral-800 bg-opacity-5 p-5 rounded-xl flex flex-row items-center justify-between">
           <div>
-            <p className="font-satoshi-medium">Withdraw</p>
+            <p className="font-satoshi-medium">Get</p>
             <input
               className="bg-transparent focus:outline-none placeholder-neutral-500 font-satoshi-medium text-4xl"
               type="number"
@@ -142,6 +142,7 @@ export default function Pool() {
 
         <Button
           className="w-full"
+          onClick={()=>{MintLETH(currentAccount, ethInput)}}
           text={`${connected ? "Deposit" : "Connect Wallet"}`}
         />
       </body>
