@@ -7,6 +7,8 @@ import {
   checkConnectedWallet,
   connectWallet,
   openLink,
+  RequestETHNetwork,
+  RequestOPNetwork,
   scrolltoHash,
   walletConnection,
 } from "../lib/utils";
@@ -107,6 +109,11 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     setSelectedOption(value);
     setSelectedImage(image);
     setIsOpen(false);
+    if(selectedOption ==="OP"){
+      RequestOPNetwork()
+    }else if (selectedOption === "ETH"){
+      RequestETHNetwork()
+    }
     console.log("ss", selectedOption);
   };
 

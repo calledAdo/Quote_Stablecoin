@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { Dispatch, SetStateAction } from "react";
-import ABI from "../abi/Minter.json"
+import ABI from "../abi/Minter.json";
 import { parseEther } from "ethers/lib/utils";
 export const scrolltoHash = function (element_id: string) {
   const element = document.getElementById(element_id);
@@ -19,7 +19,7 @@ export const isWalletConnected = async (
 };
 
 export function openLink(url: string) {
-  window.open(url, "_blank"); 
+  window.open(url, "_blank");
 }
 
 export const checkConnectedWallet = async (
@@ -37,9 +37,9 @@ export const checkConnectedWallet = async (
   }
 };
 
-export async function MintLETH(account:any, amount:string) {
-   //@ts-ignore
-   if (window.ethereum) {
+export async function MintLETH(account: any, amount: string) {
+  //@ts-ignore
+  if (window.ethereum) {
     // 1️⃣ Request Wallet Connection from Metamask
     // ANSWER can be found here: https://docs.metamask.io/wallet/get-started/set-up-dev-environment/
     // const accounts = YOUR CODE
@@ -53,13 +53,12 @@ export async function MintLETH(account:any, amount:string) {
 
     let contract = new ethers.Contract(contractAddress, ABI.abi, signer);
 
-    
     try {
       //@ts-ignore
       //c console.log("FUNCTIONS", contract.interface.forEachFunction((f)=>console.log(f)))
-      await contract.mintLETH({value:parseEther(amount)});
+      await contract.mintLETH({ value: parseEther(amount) });
       // await provider.getBalance(contractAddress)
-    // const balance = await provider.getBalance()
+      // const balance = await provider.getBalance()
 
       // 4️⃣ call the contract createTweet method in order to crete the actual TWEET
       // HINT: https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-send
@@ -73,7 +72,6 @@ export async function MintLETH(account:any, amount:string) {
     }
     // console.log(a);
   } else {
-    
     // alert("No web3 provider detected");
     // setShowWallets(true)
     //@ts-ignore
@@ -81,9 +79,96 @@ export async function MintLETH(account:any, amount:string) {
       "No web3 provider detected. Please install MetaMask.";
   }
 }
-export async function MintToken(account:any, amount:string) {
-   //@ts-ignore
-   if (window.ethereum) {
+
+export async function RequestOPNetwork() {
+  //@ts-ignore
+  if (window.ethereum) {
+    // 1️⃣ Request Wallet Connection from Metamask
+    // ANSWER can be found here: https://docs.metamask.io/wallet/get-started/set-up-dev-environment/
+    // const accounts = YOUR CODE
+
+    // setConnected(accounts[0]);
+    //@ts-ignore
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // const a = await provider.send("eth_requestAccounts", []);
+
+    // let contract = new ethers.Contract(contractAddress, ABI.abi, signer);
+
+    try {
+      //@ts-ignore
+      window.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [{
+            chainId: "0xA",
+            rpcUrls: ["https://mainnet.optimism.io/"],
+            chainName: "OP Mainnet",
+            nativeCurrency: {
+                name: "ETH",
+                symbol: "ETH",
+                decimals: 18
+            },
+            blockExplorerUrls: ["https://explorer.optimism.io"]
+        }]
+    });
+    } catch (error) {
+      console.error("User rejected request:", error);
+    }
+    // console.log(a);
+  } else {
+    // alert("No web3 provider detected");
+    // setShowWallets(true)
+    //@ts-ignore
+    document.getElementById("connectMessage").innerText =
+      "No web3 provider detected. Please install MetaMask.";
+  }
+}
+
+export async function RequestETHNetwork() {
+  //@ts-ignore
+  if (window.ethereum) {
+    // 1️⃣ Request Wallet Connection from Metamask
+    // ANSWER can be found here: https://docs.metamask.io/wallet/get-started/set-up-dev-environment/
+    // const accounts = YOUR CODE
+
+    // setConnected(accounts[0]);
+    //@ts-ignore
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // const a = await provider.send("eth_requestAccounts", []);
+
+    // let contract = new ethers.Contract(contractAddress, ABI.abi, signer);
+
+    try {
+      //@ts-ignore
+      window.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [{
+            chainId: "0x1",
+            rpcUrls: ["https://eth.drpc.org"],
+            chainName: "Ethereum Mainnet",
+            nativeCurrency: {
+                name: "ETH",
+                symbol: "ETH",
+                decimals: 18
+            },
+            blockExplorerUrls: ["https://etherscan.io"]
+        }]
+    });
+    } catch (error) {
+      console.error("User rejected request:", error);
+    }
+    // console.log(a);
+  } else {
+    // alert("No web3 provider detected");
+    // setShowWallets(true)
+    //@ts-ignore
+    document.getElementById("connectMessage").innerText =
+      "No web3 provider detected. Please install MetaMask.";
+  }
+}
+
+export async function MintToken(account: any, amount: string) {
+  //@ts-ignore
+  if (window.ethereum) {
     // 1️⃣ Request Wallet Connection from Metamask
     // ANSWER can be found here: https://docs.metamask.io/wallet/get-started/set-up-dev-environment/
     // const accounts = YOUR CODE
@@ -97,13 +182,12 @@ export async function MintToken(account:any, amount:string) {
 
     let contract = new ethers.Contract(contractAddress, ABI.abi, signer);
 
-    
     try {
       //@ts-ignore
       //c console.log("FUNCTIONS", contract.interface.forEachFunction((f)=>console.log(f)))
-      await contract.mintQUOTE({value:parseEther(amount)});
+      await contract.mintQUOTE({ value: parseEther(amount) });
       // await provider.getBalance(contractAddress)
-    // const balance = await provider.getBalance()
+      // const balance = await provider.getBalance()
 
       // 4️⃣ call the contract createTweet method in order to crete the actual TWEET
       // HINT: https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-send
@@ -117,7 +201,6 @@ export async function MintToken(account:any, amount:string) {
     }
     // console.log(a);
   } else {
-    
     // alert("No web3 provider detected");
     // setShowWallets(true)
     //@ts-ignore
@@ -145,7 +228,7 @@ export async function walletConnection(
     });
     console.log("Wallet provider detected");
   } catch (error) {
-    // window.open(url, "_blank"); 
+    // window.open(url, "_blank");
     console.log("Wallet provider not detected or error: ");
   }
 }
@@ -170,9 +253,8 @@ export async function connectWallet(
     setConnected(true);
     console.log(account);
   } else {
-    
     // alert("No web3 provider detected");
-    setShowWallets(true)
+    setShowWallets(true);
     //@ts-ignore
     document.getElementById("connectMessage").innerText =
       "No web3 provider detected. Please install MetaMask.";
