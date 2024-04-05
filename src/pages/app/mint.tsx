@@ -23,8 +23,9 @@ export default function Mint() {
   const [ethValue, setEthValue] = useState("");
 
   const inputRef = useRef(null);
-  const[isEthInputFocused, setEthInputFocused] = useState<boolean | null>(false);
-  const[isQuoteInputFocused, setQuoteInputFocused] = useState(false);
+  const [isEthInputFocused, setEthInputFocused] = useState<boolean | null>(
+    false
+  );
 
   const toggling = () => setIsOpen(!isOpen);
 
@@ -57,43 +58,28 @@ export default function Mint() {
     checkConnectedWallet(setCurrentAccount, setConnected);
   }, [currentAccount, connected]);
 
-  const convertValue = async () => {
-    try {
-      if (ethValue) {
-        setQuoteInput((parseFloat(ethInput) * parseFloat(ethValue)).toString());
-      } else {
-        throw new Error("Failed to retrieve Ethereum price data");
-      }
-    } catch (error) {
-      console.error("Error fetching Ethereum price:", error);
-      // Handle error gracefully, potentially using a default price or informing the user
-      return null; // Or provide a default value here
-    }
-  };
- 
-
   useEffect(() => {
     const handleFocusChange = () => {
       const isFocused = document.activeElement === inputRef.current;
       // Use the 'isFocused' variable to update your component's state or UI
-      console.log('Input is focused:', isFocused);
+      console.log("Input is focused:", isFocused);
       //@ts-ignore
-      setEthInputFocused(inputRef)
-    //   alert(isEthInputFocused)
+      setEthInputFocused(inputRef);
+      //   alert(isEthInputFocused)
     };
 
-    window.addEventListener('focus', handleFocusChange);
+    window.addEventListener("focus", handleFocusChange);
 
-    return () => window.removeEventListener('focus', handleFocusChange);
+    return () => window.removeEventListener("focus", handleFocusChange);
   }, [inputRef]);
-
-
 
   useEffect(() => {
     const convertValue = async () => {
       try {
         if (ethValue && isEthInputFocused) {
-          setQuoteInput((parseFloat(ethInput) * parseFloat(ethValue)).toString());
+          setQuoteInput(
+            (parseFloat(ethInput) * parseFloat(ethValue)).toString()
+          );
         } else {
           throw new Error("Failed to retrieve Ethereum price data");
         }
@@ -110,7 +96,9 @@ export default function Mint() {
     const convertValue = async () => {
       try {
         if (ethValue) {
-          setEthInput((parseFloat(quoteInput) / parseFloat(ethValue)).toString());
+          setEthInput(
+            (parseFloat(quoteInput) / parseFloat(ethValue)).toString()
+          );
         } else {
           throw new Error("Failed to retrieve Ethereum price data");
         }
@@ -123,8 +111,6 @@ export default function Mint() {
     convertValue();
   }, [quoteInput]);
 
-  
-
   return (
     <main className="flex flex-col items-center justify-center pt-40 px-24">
       <body className="bg-background-500 shadow-lg w-[50%] p-5 rounded-lg flex flex-col gap-y-4">
@@ -135,7 +121,9 @@ export default function Mint() {
               className="bg-transparent focus:outline-none placeholder-neutral-500 font-satoshi-medium text-4xl"
               type="number"
               value={ethInput}
-              onChange={(e)=>{setEthInput(e.target.value);}}
+              onChange={(e) => {
+                setEthInput(e.target.value);
+              }}
               placeholder="0"
               min={0}
             />
@@ -164,7 +152,9 @@ export default function Mint() {
               type="number"
               placeholder="0"
               value={quoteInput}
-              onChange={(e)=>{setQuoteInput(e.target.value)}}
+              onChange={(e) => {
+                setQuoteInput(e.target.value);
+              }}
               min={0}
             />
 
