@@ -1,8 +1,5 @@
 import { Accordion } from '@components'
 import { FAQItems } from '@constants'
-import React from 'react'
-
-
 
 export default function FAQS() {
   return (
