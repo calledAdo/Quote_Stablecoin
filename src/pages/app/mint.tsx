@@ -31,7 +31,7 @@ export default function Mint() {
   );
 
   const toggling = () => setIsOpen(!isOpen);
-console.log(GetBalance(currentAccount))
+
   const onOptionClicked = (value: any, image: any) => {
     setSelectedOption(value);
     setSelectedImage(image);
