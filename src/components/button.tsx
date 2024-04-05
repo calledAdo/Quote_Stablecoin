@@ -8,3 +8,10 @@ export const Button : React.FC<ButtonProps> = ({text, className, ...props})=>{
         </button>
     )
 }
+export const OutlinedButton : React.FC<ButtonProps> = ({text, className, ...props})=>{
+    return(
+        <button className={`bg-transparent border border-primary text-neutral-900 font-satoshi-medium hover:bg-pink-600 hover:text-white hover:border-0 hover:scale-90 rounded-full transition-all  ${className}`} {...props}>
+{text}
+        </button>
+    )
+}

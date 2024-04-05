@@ -24,15 +24,14 @@ export interface HeaderProps
   route: string;
   setRoute: Dispatch<SetStateAction<string>>
 }
-export interface SideBarProps
+export interface FooterProps
   extends React.HTMLAttributes<HTMLDivElement> {
   className: string;
-  route: string;
-  setRoute: Dispatch<SetStateAction<string>>
 }
 
-export interface OTPInputProps  {
-  length?: number;
-  onComplete: (pin: string) => void;
-  onSubmit: () => void;
-};
+export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
+  question: string;
+  answer: string;
+}
+
+

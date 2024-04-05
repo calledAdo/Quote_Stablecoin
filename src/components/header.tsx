@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { HeaderProps, OTPInputProps, ViewProps } from "@lib/interfaces";
+import { HeaderProps, ViewProps } from "@lib/interfaces";
 import { Icon } from "@iconify/react";
 import { HeaderItems } from "@constants";
 import { motion } from "framer-motion";
@@ -23,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
   return (
     <header
-      className={`flex flex-row fixed w-screen backdrop-blur-md h-22 items-center justify-between bg-background px-24 z-50 py-4 bg-opacity-5 ${className}`}
+      className={`flex flex-row fixed w-screen backdrop-blur h-22 items-center justify-between bg-background px-24 z-50 py-4 bg-opacity-5 ${className}`}
       {...props}
     >
       <img src="./quote_coin.svg" className="object-contain w-12 h-12" />

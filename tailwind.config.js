@@ -9,7 +9,10 @@ export default {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors:{
+        "primary-300": "#FFA0F0",
         primary: "#DE0FBD",
+        "primary-700":"#BB10A0",
+        "primary-900": "#70025E",
         background: "#FAFAFA",
         blur: "#627EEA"
       },
