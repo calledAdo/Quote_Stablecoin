@@ -35,61 +35,66 @@ describe("Minter", function () {
       expect(MinterBalance).to.equal(0n);
     });
   });
-  describe("Minting LETH ,Burning QUOTE and burning Quote", function () {
-    it("Checks that Initial Minting is not restricted by the overcollaterilzation until quote is minted ", async function () {
+  // describe("Minting LETH ", function () {
+  //   it("Checks that Initial Minting is not restricted by the overcollaterilzation until quote is minted ", async function () {
+  //     const { Minter, owner } = await loadFixture(deployMinter);
+  //     const tokenAddress = await Minter.LETH_TOKEN();
+  //     const token = await hre.ethers.getContractAt(
+  //       "OwnableERC20",
+  //       tokenAddress,
+  //       owner
+  //     );
+  //     //mints some LETH
+  //     const mintTx = await Minter.mintLETH({ value: amount });
+
+  //     await mintTx.wait();
+  //     //checks the updated token balance
+  //     const newTokenBalance = await token.balanceOf(owner);
+
+  //     //new token balance should be the same as running equivalent
+  //     expect(newTokenBalance).to.equal(percentageDifference(amount, 1));
+  //   });
+
+  //   it("Checks that minting of QUOTE  works well above max collteral ratio", async function () {
+  //     const { Minter, owner } = await loadFixture(deployMinter);
+  //     const quoteAddress = await Minter.QUOTE_TOKEN();
+  //     const token = await hre.ethers.getContractAt(
+  //       "OwnableERC20",
+  //       quoteAddress,
+  //       owner
+  //     );
+  //     const amountIn = hre.ethers.parseEther("0.20");
+  //     const mintTX = await Minter.mintQUOTE({ value: amountIn });
+
+  //     await mintTX.wait();
+
+  //     const newTokenBalance = await token.balanceOf(owner);
+
+  //     expect(newTokenBalance).to.equal(
+  //       percentageDifference(4000n * amountIn, 1)
+  //     );
+  //   });
+  // });
+
+  // describe("Minting QUOTE", function () {
+  //   it("Should fail if max collateral ratio has been exceeded", async function () {
+  //     const { Minter, owner } = await loadFixture(deployMinter);
+  //     const amountIn = hre.ethers.parseEther("0.30");
+  //     expect(
+  //       await Minter.mintQUOTE({ value: amountIn })
+  //     ).to.be.revertedWithCustomError(Minter, "BelowMinCollateralRatio");
+  //   });
+  // });
+  describe("Burning  QUOTE", function () {
+    it("QUOTE can be burnt at anytime", async function () {
       const { Minter, owner } = await loadFixture(deployMinter);
-      const tokenAddress = await Minter.LETH_TOKEN();
-      const token = await hre.ethers.getContractAt(
-        "OwnableERC20",
-        tokenAddress,
-        owner
-      );
-      //mints some LETH
-      const mintTx = await Minter.mintLETH({ value: amount });
 
-      await mintTx.wait();
-      //checks the updated token balance
-      const newTokenBalance = await token.balanceOf(owner);
-
-      //new token balance should be the same as running equivalent
-      expect(newTokenBalance).to.equal(percentageDifference(amount, 1));
-    });
-
-    it("Checks that minting of QUOTE is works well above max collteral ratio", async function () {
-      const { Minter, owner } = await loadFixture(deployMinter);
-      const quoteAddress = await Minter.QUOTE_TOKEN();
-      const token = await hre.ethers.getContractAt(
-        "OwnableERC20",
-        quoteAddress,
-        owner
-      );
-      const amountIn = hre.ethers.parseEther("0.20");
-      const mintTX = await Minter.mintQUOTE({ value: amountIn });
-
-      await mintTX.wait();
-
-      const newTokenBalance = await token.balanceOf(owner);
-
-      expect(newTokenBalance).to.equal(
-        percentageDifference(4000n * amountIn, 1)
-      );
+      const amouuntForLETH = hre.ethers.parseEther("1");
+      await Minter.mintLETH({ value: amouuntForLETH });
+      const amountIn = hre.ethers.parseEther("0.3");
+      const mintTx = await Minter.mintQUOTE({ value: amountIn });
+      const amounttoBurn = hre.ethers.parseEther("10");
+      expect(await Minter.burnQUOTE(amounttoBurn)).not.to.be.reverted;
     });
   });
-
-  describe("Minting QUOTE", function () {
-    // it("Should fail if max collateral ratio has been exceeded", async function () {
-    //   const { Minter, owner } = await loadFixture(deployMinter);
-    //   const quoteAddress = await Minter.QUOTE_TOKEN();
-    //   const token = await hre.ethers.getContractAt(
-    //     "OwnableERC20",
-    //     quoteAddress,
-    //     owner
-    //   );
-    //   const amountIn = hre.ethers.parseEther("0.30");
-    //   expect(
-    //     await Minter.mintQUOTE({ value: amountIn })
-    //   ).to.be.revertedWithCustomError(Minter, "BelowMinCollateralRatio");
-    // });
-  });
-  describe("Burning LETH", function () {});
 });

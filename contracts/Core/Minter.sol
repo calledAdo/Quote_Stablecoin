@@ -209,11 +209,12 @@ contract Minter {
         bool mint
     ) private view returns (uint amountOut) {
         //this case is specifically for initial LETH  minting
-        if (address(this).balance == amountIn) {
+        if (address(this).balance == amountIn || address(this).balance == 0) {
             amountOut = amountIn;
             return amountOut;
         }
         (int price, uint8 decimal) = _priceFeed.getPrice(dummyTest);
+        require(price != 0, "0 price");
         uint256 poolValue = price.computeETHEquivalent(
             address(this).balance,
             decimal
