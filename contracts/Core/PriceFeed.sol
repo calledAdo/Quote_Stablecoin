@@ -47,6 +47,7 @@ contract PriceFeed {
 
         decimal = priceFeed.decimals();
         (, answer, , , ) = priceFeed.latestRoundData();
+        require(answer > 0, "Price fetch failure");
         return (answer, decimal);
     }
 

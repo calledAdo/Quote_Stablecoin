@@ -22,4 +22,8 @@ contract OwnableERC20 is ERC20 {
     function burn(address account, uint256 amount) external onlyOwner {
         _burn(account, amount);
     }
+
+    function decimals() public pure override returns (uint8) {
+        return 6;
+    }
 }
