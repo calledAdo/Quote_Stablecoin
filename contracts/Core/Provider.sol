@@ -2,108 +2,161 @@
 
 pragma solidity ^0.8.19;
 
-/// @title Minter
-/// @notice Core contract containing logic for minting and burning quote and STATH
-import {PriceFeed} from "./PriceFeed.sol";
 import {PriceMath} from "../Libraries/PriceMath.sol";
 
+import {PriceFeed} from "./PriceFeed.sol";
 import {OwnableERC20} from "./OwnableERC20.sol";
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract PROVIDER {
+import {IFlashLoaner} from "../Interface/IFLashLoaner.sol";
+import {GlobalState} from "../Governance/Globalstate.sol";
+
+import {ReentrancyGuardUpgradeable} from "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
+
+/**
+ *
+ * @dev base contract for providers(public  and Private)
+ * Features:simple Flashloan function with a fixed fee of 0.5%
+ * contains method for fetching conversion rates for QUOTE X ETH conversion  without fees;
+ *
+ */
+
+contract Provider is ReentrancyGuardUpgradeable {
     using PriceMath for uint;
-    uint32 constant percent_bips = 10 ** 6;
-    uint32 public feeXPBips = 10 ** 4;
-    bool locked;
 
-    /// @dev dummy test variable for price fetching locally and testing
-    bool dummyTest = true;
-    //token addresses
+    uint24 constant BASIS_POINT = 10 ** 6;
+
+    address public immutable QUOTE_TOKEN;
     PriceFeed immutable _priceFeed;
-    uint totalQuoteMinted;
+    GlobalState immutable _globalState;
+
+    uint public totalQuoteMinted;
 
     event MintedQuote(address account, uint amount);
     event BurnedQUOTE(address account, uint256 amount);
 
-    error BelowMinCollateralMultiplier(uint resultingCollateralMul);
+    error BelowMinCollateralMultiplier();
 
-    /// @dev modifier that implements and protects against re-entranncy calls into the called function
-    modifier noReentrancy() {
-        require(!locked, "");
-        locked = true;
-        _;
-        locked = false;
+    constructor(address priceFeed_, address globalState_, address quoteToken) {
+        _priceFeed = PriceFeed(priceFeed_);
+        _globalState = GlobalState(globalState_);
+
+        QUOTE_TOKEN = quoteToken;
     }
 
-    constructor(address pricefeed_, bool dummytesting_) payable {
-        dummyTest = dummytesting_;
-        _priceFeed = PriceFeed(pricefeed_);
-    }
-
-    //The following functions are callable functions for intercating with the smart contract
+    receive() external payable {}
 
     /**
-     * @dev these functions utilise a simple reentrancy guard
      *
-     *
+     *@dev calcultea the conversion of QUOTE to ETh and vice versa
      */
-    function mintQUOTE(
-        uint min_multiplier
-    ) external payable noReentrancy returns (uint) {
-        require(msg.value != 0);
-        return
-            _updateQUOTE(
-                msg.value,
-                address(this).balance,
-                true,
-                min_multiplier
-            );
-    }
+    function quoteXweiConverter(
+        uint amountIn,
+        bool mint
+    ) public view returns (uint amountOut) {
+        (int price, uint8 decimal) = _priceFeed.getPrice();
 
-    function burnQUOTE(uint amountIn) external noReentrancy returns (uint) {
-        require(amountIn != 0);
-        return _updateQUOTE(amountIn, address(this).balance, false, 0);
+        if (mint) {
+            return amountIn.computeQUOTE(price, decimal);
+        }
+        return amountIn.computeWEI(price, decimal);
     }
 
     /**
-     * @notice calculates the amount of QUOTE(amountOut) to mint for depositing the amount of WEI(amountIn)
-     * @dev Dummy Test variable is utilised when intercating locally it returns a hardcoded price of $4000 per ETH and 8 as decimal
-     * @param amountIn amount of wei to be converted
-     * @param poolBalance the wei balance of the pool
-     * @param mint true if minting and false if burning
-     *  //NOTE :
-     *   This function is only utilised for logic as it also checks for transaction resulting Undercollateralization and throws an error
+     *@dev simple flashloan execution
+     * @param amount amount to send out
      *
-     * @return The amount equivalent of QUOTE to mint(for minting) or ETH to send(for burning)
+     *
      */
 
+    function FlashLoan(uint amount) external virtual nonReentrant {
+        address sender = msg.sender;
+        uint balanceBefore = address(this).balance;
+        payable(sender).transfer(amount);
+        IFlashLoaner(sender).execute();
+
+        //fee of 0.5%
+        require(
+            address(this).balance ==
+                balanceBefore + calcPercent(amount, 5 * (10 ** 3))
+        );
+    }
+
+    /**
+     * @notice the follwing functions are utlised in minting and burning QUOTE
+     * @param amountIn the amount of WEI or QUOTE being  sent in or burnt
+     * @param account The account to mint to or burn from
+
+
+
+      NOTE: additional parameter,only useful in minting events
+      @param minMultiplier The min mutiplier of  sufficient collateral that must be 
+      in the pool as excess collateral
+      
+
+     */
+
+    function _mintQUOTE(
+        address account,
+        uint amountIn,
+        uint24 minMultiplier,
+        uint untilisedCollatreal
+    ) internal virtual returns (uint) {
+        uint amountOut = _updateQUOTE(
+            amountIn,
+            true,
+            minMultiplier,
+            untilisedCollatreal
+        );
+        OwnableERC20(QUOTE_TOKEN).mint(account, amountOut);
+        totalQuoteMinted += amountOut;
+        emit MintedQuote(account, amountOut);
+
+        return amountOut;
+    }
+
+    function _burnQUOTE(
+        address account,
+        uint amountIn
+    ) internal virtual returns (uint) {
+        uint amountOut = _updateQUOTE(amountIn, false, 0, 0);
+        OwnableERC20(QUOTE_TOKEN).burn(account, amountIn);
+        totalQuoteMinted -= amountIn;
+        emit BurnedQUOTE(account, amountIn);
+        return amountOut;
+    }
+
+    /**
+     *
+     * @param amountIn amountIn
+     *
+     *
+     *
+     *
+     
+     * @param mint true if mint ,false if burn
+     */
     function _updateQUOTE(
         uint amountIn,
-        uint poolBalance,
         bool mint,
-        uint MIN_COLLATERAL_MULTIPLIER
-    ) internal view returns (uint) {
-        uint amountOut;
-        (int price, uint8 decimal) = _priceFeed.getPrice(dummyTest);
+        uint24 minMultiplier,
+        uint unUtilisedCollateral
+    ) internal view returns (uint amountOut) {
+        (int price, uint8 decimal) = _priceFeed.getPrice();
         if (mint) {
             amountOut = amountIn.computeQUOTE(price, decimal);
 
-            //gets the collateral just sufficient to back the resulting total supply
             uint sufficientCollateral = _sufficientCollateral(
-                amountOut,
+                totalQuoteMinted + amountOut,
                 price,
                 decimal
             );
-            uint excessCollateral = poolBalance - sufficientCollateral;
-            //Checks that the resulting pool balance is at least greater than the 4 * (sufficient collateral + amountIn)
-            //reverts if it is lower
+            uint excessCollateral = address(this).balance -
+                sufficientCollateral;
             if (
-                excessCollateral <
-                (MIN_COLLATERAL_MULTIPLIER * sufficientCollateral)
+                (excessCollateral - unUtilisedCollateral) <
+                (minMultiplier * sufficientCollateral) / BASIS_POINT
             ) {
-                revert BelowMinCollateralMultiplier(
-                    (poolBalance - amountIn) / amountIn
-                );
+                revert BelowMinCollateralMultiplier();
             }
         } else {
             amountOut = amountIn.computeWEI(price, decimal);
@@ -111,73 +164,27 @@ contract PROVIDER {
         return amountOut;
     }
 
-    // /**
-    //  *
-    //  * @param amountIn The of WEI or LETH to deposit or burn
-    //  *
-    //  * @param poolBalance The balance of the smart contract
-    //  * @param mint true if minting and false if burning
-    //  * Note:
-    //  *     The value of LETH totalSupply at any time is equal to the difference between Excess Collateral and Sufficient Collateral
-    //  *     The Sufficient  collateral is the amount of WEI equivalent in value to the entire totalQuoteMinted
-    //  */
-
-    // function _updateLETH(
-    //     uint amountIn,
-    //     uint poolBalance,
-    //     bool mint,
-    // ) private view returns (uint) {
-    //     if (amountIn == poolBalance) {
-    //         return amountIn;
-    //     }
-    //     uint amountOut;
-    //     uint lethTotalSupply = IERC20(leth_address).totalSupply();
-    //     (int price, uint8 decimal) = _priceFeed.getPrice(dummyTest);
-    //     uint sufficientCollateral = _sufficientCollateral(0, price, decimal);
-    //     uint excessCollateral = poolBalance - sufficientCollateral;
-    //     if (mint) {
-    //         amountOut =
-    //             (lethTotalSupply * amountIn) /
-    //             (excessCollateral - amountIn);
-    //         if (totalQuoteMinted == 0) {
-    //             return amountOut;
-    //         }
-    //         //checks if the transaction results in collateral upper cap being exceeded
-    //         //reverts if that is the case
-    //         if (
-    //             excessCollateral >
-    //             (MAX_COLLATERAL_MULTIPLIER * sufficientCollateral)
-    //         ) {
-    //             revert AboveMaxCollateralMultiplier(
-    //                 excessCollateral / sufficientCollateral
-    //             );
-    //         }
-    //     } else {
-    //         amountOut = (excessCollateral * amountIn) / (lethTotalSupply);
-    //         if (totalQuoteMinted == 0) {
-    //             return amountOut;
-    //         }
-    //         uint excessCollateralAfter = excessCollateral - amountOut;
-    //         //Checks that the resulting excess collateral is not less collateral lower cap
-    //         if (
-    //             excessCollateralAfter <
-    //             (MIN_COLLATERAL_MULTIPLIER * sufficientCollateral)
-    //         ) {
-    //             revert BelowMinCollateralMultiplier(
-    //                 excessCollateralAfter / sufficientCollateral
-    //             );
-    //         }
-    //     }
-    //     return amountOut;
-    // }
-
     //utils functions
+    /**
+     * Calculates the x % of amount
+     */
+    function calcPercent(
+        uint amount,
+        uint24 perc
+    ) internal pure returns (uint) {
+        return (amount * perc) / BASIS_POINT;
+    }
 
+    /**
+     *
+     * @dev calculates the sufficient collaterel value in ETH just sufficient in value to the amount of QUOTE
+     *
+     */
     function _sufficientCollateral(
-        uint delta,
-        int price,
-        uint8 decimal
-    ) private view returns (uint) {
-        return (totalQuoteMinted + delta).computeWEI(price, decimal);
+        uint amount,
+        int price_,
+        uint8 decimal_
+    ) internal pure returns (uint) {
+        return amount.computeWEI(price_, decimal_);
     }
 }

@@ -13,9 +13,6 @@ contract PriceFeed {
     AggregatorV2V3Interface immutable sequencerUptimeFeed;
     AggregatorV2V3Interface immutable priceFeed;
 
-    //dummy value utilised for testing purposes only ,set at price $4000
-    int _dummyvalue = 4000 * (10 ** 8);
-
     error SequencerIsDown(uint timestamp);
 
     constructor(address pricefeed_) {
@@ -25,12 +22,8 @@ contract PriceFeed {
         priceFeed = AggregatorV2V3Interface(pricefeed_);
     }
 
-    function setDummyValue(int newValue) external {
-        _dummyvalue = newValue;
-    }
-
     /// @notice gets the current price of ETH and the precision for the latest round from chainlink priceFeed Securely
-    /// @dev This is utilised in mainnet as chainlink L2 sequencer uptime feed  is nit deployed in testnet
+    /// @dev This is utilised in mainnet as chainlink L2 sequencer uptime feed  is not deployed on testnets
     /// @return answer  price of the latest round
     /// @return decimal price decimal precision
     function getSecurePrice()
@@ -53,15 +46,9 @@ contract PriceFeed {
 
     /// @notice gets the current price of ETH and the precision for the latest round from chainlink priceFeed
     /// @dev This is utilised  only for testnet as it does not check if sequencer is down
-    /// @param isdummy utilised for testing ,returns a constant value of $4000 per ETH
     /// @return answer value gotten from AggregatorV2V3 latest round (last updated price of ETH)
     /// @return decimal precision of price returned
-    function getPrice(
-        bool isdummy
-    ) external view returns (int answer, uint8 decimal) {
-        if (isdummy) {
-            return (_dummyvalue, 8);
-        }
+    function getPrice() external view returns (int answer, uint8 decimal) {
         decimal = priceFeed.decimals();
         (, answer, , , ) = priceFeed.latestRoundData();
         return (answer, decimal);
