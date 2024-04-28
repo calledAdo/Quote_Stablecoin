@@ -5,7 +5,7 @@ import "@nomicfoundation/hardhat-verify";
 import { vars } from "hardhat/config";
 
 const MNEMONIC = vars.get("MNEMONIC");
-const SEPOLIA_URL = vars.get("SEPOLIA_URL");
+const SCROLL_API = vars.get("SCROLL_API");
 
 const config: HardhatUserConfig = {
   solidity: "0.8.24",
@@ -13,43 +13,38 @@ const config: HardhatUserConfig = {
     ganache: {
       url: "HTTP://127.0.0.1:7545",
       accounts: {
-        mnemonic:
-          "absurd helmet verb emerge sad grant another zoo medal jeans spider wing",
+        mnemonic: MNEMONIC,
       },
     },
     arbitrumSepolia: {
       url: "https://arb-sepolia.g.alchemy.com/v2/0xEQ1Ty8X1FuJ1_MykwccXp_FfyPjatq",
       accounts: {
-        mnemonic:
-          "satoshi cry weird easily flame educate tail accident siren open flush cause",
+        mnemonic: MNEMONIC,
       },
     },
     scrollSepolia: {
       url: "https://sepolia-rpc.scroll.io/",
       accounts: {
-        mnemonic:
-          "satoshi cry weird easily flame educate tail accident siren open flush cause",
+        mnemonic: MNEMONIC,
       },
     },
     ETHsepolia: {
       url: "https://eth-sepolia.g.alchemy.com/v2/2sp6Bmjb4ES43w79-eMV2vrIHfFQOjjT",
       accounts: {
-        mnemonic:
-          "satoshi cry weird easily flame educate tail accident siren open flush cause",
+        mnemonic: MNEMONIC,
       },
     },
     Opsepolia: {
       url: "https://opt-sepolia.g.alchemy.com/v2/zsoQaUYmxYoVt54fgM39Ai1gKBtpQh6b",
       accounts: {
-        mnemonic:
-          "satoshi cry weird easily flame educate tail accident siren open flush cause",
+        mnemonic: MNEMONIC,
       },
     },
   },
   //npx hardhat verify --network <network> DEPLOYED_CONTRACT_ADDRESS "Constructor argument 1"
   etherscan: {
     apiKey: {
-      scrollSepolia: "K8HB2WTICYJMP5MGMCZZWUYHYFP1K1U6M4",
+      scrollSepolia: SCROLL_API,
     },
     customChains: [
       {
