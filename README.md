@@ -17,7 +17,7 @@ The Public Provider ensures to maintain a minimal longs to shorts ratio of 4 ( t
 ### Private Providers
 
 Private Providers provide a Capital Efficient gateway for individuals to open Collateralized Debt Positions (C.D.P) by providing the excess collateral needed for minting QUOTE .<br><br>
-**Private Providers** set their interest rates for utilizing their liquidity and when individuals open debt positions with them the excess collateral supplied by the Private Providers can not be withdrawn by the provider but can be supplied on secondary protocol (currently Aave) to earn yields while also eligible to receive interest on the debt position thereby creating the necessary incentives for persons to act as private providers and creating a competitive market and giving users flexibility in choosing options
+**Private Providers** set their interest rates for utilizing their liquidity and when individuals open debt positions with them the excess collateral supplied by the Private Providers can not be withdrawn by the provider but can be supplied on secondary protocol (currently Aave) to earn yields while also eligible to receive interest on the debt position thereby creating the necessary incentives for persons to act as private providers and creating a competitive market and giving users flexibility in choosing options <br>
 
 ```shell
 npx hardhat ignition deploy ./ignition/modules/ProviderDetails.ts --network scrollSepolia
@@ -29,12 +29,6 @@ npx hardhat ignition deploy ./ignition/modules/UserDetails.ts --network scrollSe
 npx hardhat verify --network scrollSepolia 0x318184E7fE747646c13C4D879E7bC04152aC03bB
 
 npx hardhat ignition deploy ./ignition/modules/Factory.ts --network scrollSepolia
-
-npx hardhat ignition deploy ./ignition/modules/Factory.ts --network scrollSepolia
-
-
-npx hardhat verify --network scrollSepolia --constructor-args arguments.js 0xc7078EF8707c029988fA1b863f400667DC8e0D45
-
 npx hardhat ignition deploy ./ignition/modules/PublicProvider.ts --network scrollSepolia
 
 npx hardhat verify --network scrollSepolia --constructor-args arguments.js 0xe91AD4a4ec8112D9323cDAFf5c6F97B1e13502F7
