@@ -1,5 +1,3 @@
-# Quote Protocol
-
 Quote is a decentralized stable coin that utilizes the the Fractional Reserve and Virtual Perpetual Futures (V.P.F) mechanism to ensure stability and Capital efficiency .
 
 Quote Protocol works on two main architectures -->
