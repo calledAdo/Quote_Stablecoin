@@ -11,7 +11,7 @@ export default function Works() {
     >
       <section className="w-[40%] flex flex-col">
         <motion.p
-          className="font-satoshi-bold text-3xl z-10"
+          className="font-satoshi-bold text-3xl z-10 text-black dark:text-white"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -25,7 +25,7 @@ export default function Works() {
           How It Works?
         </motion.p>
         <motion.p
-          className="font-satoshi text-xl z-10 mt-10"
+          className="font-satoshi text-xl z-10 mt-10 text-black dark:text-white"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

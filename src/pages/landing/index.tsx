@@ -2,7 +2,7 @@ import { Footer, Header } from "@components";
 import { useState } from "react";
 import Home from "./home";
 
-import Works from "./works";
+// import Works from "./works";
 import Docs from "./docs";
 import Pricing from "./pricing";
 import FAQS from "./faqs";
@@ -14,8 +14,8 @@ export default function Landing() {
     <main className="flex flex-col">
       <Header className="" route={route} setRoute={setRoute} />
 
-      <Home />
-      <Works />
+      <Home/>
+      {/* <Works /> */}
       <Docs />
       <Pricing />
       <FAQS />

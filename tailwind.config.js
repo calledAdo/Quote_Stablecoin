@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "selector",
   theme: {
     extend: {
       backgroundImage: {
@@ -15,8 +17,11 @@ export default {
         "primary-700":"#BB10A0",
         "primary-900": "#70025E",
         background: "#FAFAFA",
+        "background-dark": "#0A0008",
         "background-500": "#F9F4F4",
-        blur: "#627EEA"
+        blur: "#627EEA",
+        "blur-dark": "#5B054D",
+        "holder": "#24111F"
       },
       fontFamily: {
         "satoshi-light": ["Satoshi-Light", "sans-serif"],
