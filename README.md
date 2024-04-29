@@ -17,7 +17,12 @@ The Public Provider ensures to maintain a minimal  longs to shorts ratio of 4 ( 
 ### Private Providers
   Private Providers provide a Capital Efficient  gateway for individuals to open Collateralized Debt Positions (C.D.P) by providing the excess collateral needed for minting QUOTE ,hence individuals are able to utilise up to 90% of their collateral in CDP's <br><br>
 **Private Providers** set their interest rates for utilizing their liquidity  and when individuals open debt positions with them the excess collateral supplied by the Private Providers can not be withdrawn by the provider but can be supplied on secondary protocol (currently Aave) to earn yields while also eligible to receive interest on the debt position thereby creating the necessary incentives for persons to act as private providers and creating a competitive market and giving users flexibility in choosing options<br>
-Being a Private Provider can be very lucrative as 75% of the entire liquidity(ETH) within the Position can be deposited on Aave hence also generating extra yield for Private Providers and hence this would also bring in independent Financial Entities into the ecosystem and the formation of DAO's as Private  Providers<br>  
+Being a Private Provider can be very lucrative as they enjoy the following benefits 
+- Interest rate  paid by individuals who opened CDP's
+- fees Paid by persons who utilise the liquidity for flash loans
+- 75% of the entire liquidity(ETH) within the Position can be deposited on Aave hence also generating extra yield for Private Providers(Note:The  Aave aTokens minted out is also locked in the pool)
+
+ This would also bring in independent Financial Entities into the ecosystem and the formation of DAO's as Private  Providers<br>  
 
 
 
