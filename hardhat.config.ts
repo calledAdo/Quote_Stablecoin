@@ -16,26 +16,8 @@ const config: HardhatUserConfig = {
         mnemonic: MNEMONIC,
       },
     },
-    arbitrumSepolia: {
-      url: "https://arb-sepolia.g.alchemy.com/v2/0xEQ1Ty8X1FuJ1_MykwccXp_FfyPjatq",
-      accounts: {
-        mnemonic: MNEMONIC,
-      },
-    },
     scrollSepolia: {
       url: "https://sepolia-rpc.scroll.io/",
-      accounts: {
-        mnemonic: MNEMONIC,
-      },
-    },
-    ETHsepolia: {
-      url: "https://eth-sepolia.g.alchemy.com/v2/2sp6Bmjb4ES43w79-eMV2vrIHfFQOjjT",
-      accounts: {
-        mnemonic: MNEMONIC,
-      },
-    },
-    Opsepolia: {
-      url: "https://opt-sepolia.g.alchemy.com/v2/zsoQaUYmxYoVt54fgM39Ai1gKBtpQh6b",
       accounts: {
         mnemonic: MNEMONIC,
       },
