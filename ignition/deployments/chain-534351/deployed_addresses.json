@@ -1,0 +1,6 @@
+{
+  "FactoryModule#Factory": "0xc7078EF8707c029988fA1b863f400667DC8e0D45",
+  "PublicProviderModule#PublicProvider": "0xe91AD4a4ec8112D9323cDAFf5c6F97B1e13502F7",
+  "ProviderDetails#ProviderDetailsFetcher": "0x785fd27fed0b2AA387B4c014d3ec1Cce6b67c7AE",
+  "UserDetails#UserDetailsFetcher": "0x318184E7fE747646c13C4D879E7bC04152aC03bB"
+}
