@@ -24,6 +24,17 @@ Being a Private Provider can be very lucrative as they enjoy the following benef
 
  This would also bring in independent Financial Entities into the ecosystem and the formation of DAO's as Private  Providers<br>  
 
+## Project SetUp
+
+
+**Core**<br>
+  Containes all the core logic of the protocol including the Providers  (Both Public and Private) abd also the Factory contract for creating new Private Providers,it also contains the priceFeed  contract for fetching accurate Price <br>
+ **Fetchers**<br>
+  This contains the fetcher contracts utilised for basically fetching required details from the contract for use in the frontend<br>
+ **Interface**<br>
+  This contains all external interfaces implemented by the core logic like the Aave V3 WrappedTokenGateway
+ **Libraries**<br>
+Calculation libraries utilised in the core contract 
 
 
 ## Deployed Addresses
