@@ -41,16 +41,16 @@ Calculation libraries utilised in the core contract
 ### Core Contracts 
 
 [Global State](https://sepolia.scrollscan.com/address/0x031fe35d4798d92b2a6f6b4fa1ff22b0c6cc4f4a#code)<br>
-The GlobalState contract serves as the governing body of the protocol where important paramters of the Providers (public and Private) are stored and set ,it is currently controlled by us but that authority can easily be given to a DAO in the future <br>
+The GlobalState contract serves as the governing body of the protocol where important paramters of the Providers (public and Private) are stored and set ,it is currently controlled by us but that authority can easily be given to a DAO in the future. <br>
 
 [PriceFeed](https://sepolia.scrollscan.com/address/0xfd3548c0b15c3b12eaf689c520d0381e7ef0c501#code)<br>
-PriceFeed contract basically fetches ETH/USD rate securely from Chainlink Oracles and is utilised for minting QUOTE,we implemented the **AggregatorV2V3Interface**  interface that provides a secure method for checking if L2 sequencer is down but that is to be used only on mainnet <br>
+PriceFeed contract basically fetches ETH/USD rate securely from Chainlink Oracles and is utilised for minting QUOTE,we implemented the **AggregatorV2V3Interface**  interface that provides a secure method for checking if L2 sequencer is down but that is to be used only on mainnet. <br>
 
-[Factory](https://sepolia.scrollscan.com/address/0xc7078EF8707c029988fA1b863f400667DC8e0D45#code)
-The Factory contract for creating new Private providers <br>
+[Factory](https://sepolia.scrollscan.com/address/0xc7078EF8707c029988fA1b863f400667DC8e0D45#code)<br>
+The Factory contract for creating new Private providers. <br>
 Private Providers are created and allocated a special ID that can be mapped to them.<br>
 
-[Public Provider](https://sepolia.scrollscan.com/address/0xe91ad4a4ec8112d9323cdaff5c6f97b1e13502f7#code)
+[Public Provider](https://sepolia.scrollscan.com/address/0xe91ad4a4ec8112d9323cdaff5c6f97b1e13502f7#code)<br>
 The Public Provider contract that utilizes the V.P.F mechanism and   serves as the entry point for minting and burning QUOTE and LETH.
 
 ### Fetchers
