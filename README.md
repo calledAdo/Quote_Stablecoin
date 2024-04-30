@@ -59,4 +59,5 @@ The Public Provider contract that utilizes the V.P.F mechanism and   serves as t
 This contains the getUtilisedProviders method that returns the addresses of all private providers that user has a debt position.<br>
 
 [ProviderDetailsFetcher](https://sepolia.scrollscan.com/address/0x785fd27fed0b2AA387B4c014d3ec1Cce6b67c7AE#code)<br>
-This contains the getFunctionalAddresses method that takes in a user address and  returns an array of all providers that are functional and that user has no debt position on.(NOTE:users can only have one debt position per provider).
+This contains the getFunctionalAddresses method that takes in a user address and  returns an array of all providers that are functional and that user has no debt position on.<br>
+(NOTE:users can only have one debt position per provider).
